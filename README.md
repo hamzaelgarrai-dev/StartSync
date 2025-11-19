@@ -47,55 +47,6 @@ GitHub Actions (CI/CD)
 
 Deployment: Render / Railway (API), Netlify / Vercel (frontend)
 
-🧱 Professional System Architecture
-High-Level Architecture Diagram (Text Version)
-                       +---------------------------+
-                       |         Client Users      |
-                       |  (Clients / Managers /    |
-                       |       Developers)         |
-                       +-------------+-------------+
-                                     |
-                                     |
-                          HTTP / Widget Events
-                                     |
-                                     v
-                 +--------------------------------------+
-                 |             Frontend (React)          |
-                 |  - UI pages / Dashboard               |
-                 |  - Widget script                      |
-                 |  - API calls via Axios                |
-                 +----------------+-----------------------+
-                                  |
-                                  | REST API (JSON)
-                                  v
-               +-------------------------------------------+
-               |              Backend (Laravel)             |
-               |  - Authentication (Sanctum)                |
-               |  - Projects / Feedback / Comments          |
-               |  - Roles & Permissions (Laratrust)         |
-               |  - Notifications / WebSockets              |
-               +--------------------+------------------------+
-                                    |
-                                    | Eloquent ORM
-                                    v
-                     +--------------------------------+
-                     |       PostgreSQL Database       |
-                     |  users, projects, feedbacks...  |
-                     +--------------------------------+
-                                    |
-                                    | WebSockets
-                                    v
-                     +--------------------------------+
-                     |   Pusher / Laravel Echo Server  |
-                     |  Real-time events & updates     |
-                     +--------------------------------+
-                                    |
-                                    | CI/CD / Deploy
-                                    v
-                    +-----------------------------------+
-                    |  Docker + GitHub Actions Pipeline  |
-                    +-----------------------------------+
-
 ⚙ Installation (Summary)
 Backend
 composer install
