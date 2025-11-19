@@ -4,11 +4,11 @@ StartSync is a lightweight SaaS solution designed for startups, agencies, and de
 
 ⭐ Key Features
 
-Embedded feedback widget (screenshots + annotations)
+Embedded feedback widget 
 
 Centralized project dashboard
 
-Feedback lifecycle management (To-Do → In Progress → Resolved)
+Feedback lifecycle management 
 
 Team management (roles, permissions, invitations)
 
