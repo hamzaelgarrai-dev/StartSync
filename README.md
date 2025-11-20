@@ -64,8 +64,7 @@ npm run dev
 
 (Links to be added)
 
-Cahier des charges
-https://docs.google.com/document/d/18vjmPaDtCVHD0H36m2VrpJuVbjYld8gYxb8oVjqZ_kw/edit?usp=sharing
+Cahier des charges : https://docs.google.com/document/d/18vjmPaDtCVHD0H36m2VrpJuVbjYld8gYxb8oVjqZ_kw/edit?usp=sharing
 
 Jira Planification : https://hamzaelgarrai.atlassian.net/jira/software/c/projects/STAR/boards/133/backlog?epics=visible&issueParent=10132&version=10000%2C10001&atlOrigin=eyJpIjoiMTMxMjM2N2YxNzdlNGIyN2FjOTY3OWQyY2IzNDU5YTYiLCJwIjoiaiJ9
  
