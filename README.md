@@ -68,9 +68,9 @@ Cahier des charges : https://docs.google.com/document/d/18vjmPaDtCVHD0H36m2VrpJu
 
 Jira Planification : https://hamzaelgarrai.atlassian.net/jira/software/c/projects/STAR/boards/133/backlog?epics=visible&issueParent=10132&version=10000%2C10001&atlOrigin=eyJpIjoiMTMxMjM2N2YxNzdlNGIyN2FjOTY3OWQyY2IzNDU5YTYiLCJwIjoiaiJ9
  
-UML diagrams
+UML diagrams : https://lucid.app/lucidchart/b311c7c4-d6b1-43a7-8a67-583cb93fc822/edit?invitationId=inv_41dff35e-7dcc-4d08-bd8b-c04e8de1d886&page=G3G-ICszv5Lu#
 
-Figma design
+Figma design : https://www.figma.com/design/OFW2uj3I7xCwNBCPMu5kHZ/Fil-Rouge?t=9mc0aXobvER29yee-1
 
 API documentation
 
