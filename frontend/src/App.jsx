@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import Navbar from './components/layout/Navbar'
+import Footer from './components/layout/Footer'
 
 
 function App() {
@@ -10,6 +11,8 @@ function App() {
     <div className='max-w-[1280px] mx-auto px-6'>
 
         <Navbar/>
+
+        <Footer/>
 
     </div>
 

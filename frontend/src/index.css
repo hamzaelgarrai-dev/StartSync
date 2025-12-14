@@ -4,3 +4,9 @@ html {
   font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont,
     'Segoe UI', Roboto, sans-serif;
 }
+
+.active{
+
+  color: #1969f4;
+
+}
