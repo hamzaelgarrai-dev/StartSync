@@ -21,6 +21,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'team_id'
     ];
 
     /**
@@ -42,4 +43,21 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+    public function project(){
+        return $this->hasMany(Project::class);
+    }
+
+     public function feedbackSent(){
+        return $this->hasMany(Feedback::class);
+    }
+
+    public function assignedFeedback(){
+        return $this->hasMany(Feedback::class);
+    }
+
+    public function team(){
+        return $this->belongsTo(Team::class);
+    }
+
 }
