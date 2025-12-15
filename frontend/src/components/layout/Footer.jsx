@@ -4,9 +4,9 @@ import React from 'react'
 function Footer() {
   return (
 
-    <div className='w-full  h-60 flex justify-between '>
+    <div className='w-full  h-70 flex justify-between '>
 
-        <div className=' w-85 h-full'>
+        <div className=' w-80 h-full'>
 
             <div className=' font-bold text-[20px] text-[#333333] cursor-pointer mb-12'>StartSync</div>
 
