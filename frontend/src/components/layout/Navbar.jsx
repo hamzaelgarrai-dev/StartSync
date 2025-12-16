@@ -4,11 +4,11 @@ import { NavLink } from 'react-router-dom'
 
 function Navbar() {
   return (
-    <div className=' w-full h-22 flex items-center justify-between'>
+    <div className=' w-full h-22 flex items-center justify-between mb-4'>
 
         <div className=' font-bold text-[20px] text-[#333333] cursor-pointer'>StartSync</div>
         <nav >
-            <ul className='flex justify-between w-110 text-[#4B5563] text-[16px]'>
+            <ul className='flex justify-between w-110 text-gray-500 text-[14.5px] font-medium'>
             <li className='cursor-pointer hover:text-[#1969f4]'><NavLink to="/features">Features</NavLink></li>
             <li className='cursor-pointer hover:text-[#1969f4]'><NavLink to="how_it_work">How it works</NavLink></li>
             <li className='cursor-pointer hover:text-[#1969f4]'><NavLink to="integrations">Integrations</NavLink></li>

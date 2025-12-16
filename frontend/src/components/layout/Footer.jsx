@@ -4,7 +4,7 @@ import React from 'react'
 function Footer() {
   return (
 
-    <div className='w-full  h-70 flex justify-between '>
+    <div className='w-full  h-70 flex justify-between mt-20'>
 
         <div className=' w-80 h-full'>
 
