@@ -5,7 +5,7 @@ function Login() {
 
     <div className='min-h-screen'>
 
-        <div className=' w-[450px] h-[450px] mt-18 flex flex-col items-start mx-auto  '>
+        <div className=' w-112.5 h-112.5 mt-18 flex flex-col items-start mx-auto  '>
 
             <h2 className='text-5xl font-medium mb-16'>Welcome <span className='text-[#044FD2]'>Back!</span></h2>
 

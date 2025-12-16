@@ -63,7 +63,7 @@ function Footer() {
                     <input className='w-82 h-12 rounded-4xl bg-[#F4F8FC] border border-[#D7D7D7] focus:outline-none focus:ring-1 focus:ring-blue-300 px-4 relative' placeholder='Email...'>
 
                     </input>
-                    <button className='bg-gradient-to-r from-[#005BF8] to-[#0047C7] w-24 h-10 absolute right-1 top-1/2 -translate-y-1/2 rounded-4xl text-white cursor-pointer' >Subscribe</button>
+                    <button className='bg-linear-to-r from-[#005BF8] to-[#0047C7] w-24 h-10 absolute right-1 top-1/2 -translate-y-1/2 rounded-4xl text-white cursor-pointer' >Subscribe</button>
 
                 </form>
                 
