@@ -31,7 +31,7 @@ function Footer() {
 
             <div className='flex flex-col space-y-3.5 text-[#909090] text-[16px] '>
 
-                <p className='cursor-pointer hover:text-[#c]'>Features</p>
+                <p className='cursor-pointer hover:text-[#1969f4]'>Features</p>
                 <p className='cursor-pointer hover:text-[#1969f4]'>About Us</p>
                 <p className='cursor-pointer hover:text-[#1969f4]'>How it works</p>
                 <p className='cursor-pointer hover:text-[#1969f4]'>Support</p>

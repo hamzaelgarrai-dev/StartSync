@@ -8,4 +8,10 @@ use Illuminate\Database\Eloquent\Model;
 class Screenshot extends Model
 {
     use HasFactory;
+
+    protected $fillable = ["image_url"];
+
+    public function feedback(){
+        return $this->belongsTo(Feedback::class);
+    }
 }

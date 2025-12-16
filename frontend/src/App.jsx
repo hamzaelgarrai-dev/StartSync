@@ -2,6 +2,7 @@
 import Navbar from './components/layout/Navbar'
 import Footer from './components/layout/Footer'
 import Login from './pages/auth/Login'
+import Register from './pages/auth/Register'
 
 
 function App() {
@@ -13,7 +14,8 @@ function App() {
 
         <Navbar/>
 
-        <Login/>
+        {/* <Login/> */}
+        <Register/>
 
         <Footer/>
 
