@@ -62,7 +62,7 @@ function HowItWorks() {
   
                 <div className="absolute left-0 top-0">
                     <div className="rounded-3xl border border-[#E3EAF7] bg-[#F4F8FC] p-2 shadow-[0_20px_40px_rgba(0,0,0,0.12)]">
-                    <div className="w-[400px] h-[440px] rounded-2xl border border-[#EDF2FB] bg-white ">
+                    <div className="w-100 h-110 rounded-2xl border border-[#EDF2FB] bg-white ">
                         
                     </div>
                     </div>
@@ -71,7 +71,7 @@ function HowItWorks() {
                 
                 <div className="absolute -left-22 bottom-26">
                     <div className="rounded-3xl border border-[#E3EAF7] bg-[#F4F8FC] p-2 shadow-[0_12px_30px_rgba(0,0,0,0.18)]">
-                    <div className="w-[220px] h-[120px] rounded-2xl border border-[#EDF2FB] bg-white">
+                    <div className="w-55 h-30 rounded-2xl border border-[#EDF2FB] bg-white">
                         
                     </div>
                     </div>
@@ -95,7 +95,7 @@ function HowItWorks() {
   
                 <div className="absolute left-0 top-0">
                     <div className="rounded-3xl border border-[#E3EAF7] bg-[#F4F8FC] p-2 shadow-[0_20px_40px_rgba(0,0,0,0.12)]">
-                    <div className="w-[400px] h-[440px] rounded-2xl border border-[#EDF2FB] bg-white ">
+                    <div className="w-100 h-110 rounded-2xl border border-[#EDF2FB] bg-white ">
                         
                     </div>
                     </div>
@@ -104,7 +104,7 @@ function HowItWorks() {
                 
                 <div className="absolute -right-22 bottom-26">
                     <div className="rounded-3xl border border-[#E3EAF7] bg-[#F4F8FC] p-2 shadow-[0_12px_30px_rgba(0,0,0,0.18)]">
-                    <div className="w-[220px] h-[120px] rounded-2xl border border-[#EDF2FB] bg-white">
+                    <div className="w-55 h-30 rounded-2xl border border-[#EDF2FB] bg-white">
                         
                     </div>
                     </div>

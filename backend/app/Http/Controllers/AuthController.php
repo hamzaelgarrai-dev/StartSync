@@ -6,36 +6,42 @@ use App\Http\Requests\LoginRequest;
 use App\Http\Requests\RegisterRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller
 {
 
-    public function register(RegisterRequest $request){
+    public function register(RegisterRequest $request)      {
+            User::create([
+                'name' => $request->name,
+                'email' => $request->email,
+                'password' => $request->password, 
+            ]);
 
-             $user = User::create([
-            'name' => $request->name,
-            'email' => $request->email,
-            'password' => $request->password,
-        ]);
-        return response()->json(['message' => 'created successfully']);
+            return response()->json([
+                'message' => 'Registration successful',
+            ], 201);
     }
 
     public function login(LoginRequest $request){
 
-         $user = User::where('email', $request->email)->first();
+         if (!Auth::attempt($request->only('email', 'password'))) {
+        return response()->json([
+            'message' => 'Invalid credentials'
+        ], 401);
+    }
 
-        if (!$user || !Hash::check($request->password, $user->password)) {
-            return response()->json(['message' => 'Invalid credentials'], 401);
-        }
+    $user = $request->user();
 
         $token = $user->createToken('auth_token')->plainTextToken;
 
-        return response()->json([
-            'message' => 'Logged in',
-            'token' => $token,
-            'role'=>$user->role
-        ]);
+       return response()->json([
+            'message' => 'Login successful',
+            'user' => $user,
+            'access_token' => $token,
+            'token_type' => 'Bearer',
+            ], 200);
 
     }
 

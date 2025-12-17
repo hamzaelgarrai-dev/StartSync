@@ -11,7 +11,7 @@ function Hero() {
 
         <h1 className='text-7xl font-medium tracking-[-0.02em] max-w-7xl  text-white text-center leading-tight '>Elevate Your Feedback <br /> Management with StartSync </h1>
 
-        <p className='mt-6 max-w-150 text-center text-lg font-normal leading-relaxed text-white/90'>Product teams rely on StartSync to collect actionable user feedback, so they can build better and keep customers happy.</p>
+        <p className='mt-4 max-w-150 text-center text-lg font-normal leading-relaxed text-white/90'>Product teams rely on StartSync to collect actionable user feedback, so they can build better and keep customers happy.</p>
 
         <div className='flex mt-8 space-x-4 mb-14 '>
             <button className='bg-white w-42 h-10 font-medium text-[#297FFF] rounded-md cursor-pointer'>Get Started Free</button>
