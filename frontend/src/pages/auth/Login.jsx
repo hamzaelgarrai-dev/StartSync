@@ -10,6 +10,7 @@ function Login() {
     const {
     register,
     handleSubmit,
+    setError,
     formState: { errors , isSubmitting},
   } = useForm()
 
@@ -56,6 +57,13 @@ function Login() {
         });
       });
     }
+
+    if (error.response?.status === 401) {
+    setError("password", {
+      type: "server",
+      message: "Invalid email or password",
+    });
+  }
     }
 
     

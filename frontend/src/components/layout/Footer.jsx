@@ -57,6 +57,7 @@ function Footer() {
         <div className=' w-90 h-full'>
 
             <div className=' font-medium text-[24px] text-[#333333] cursor-pointer mb-5'>Subscribe our newsletter</div>
+            
 
                 <form className='relative'>
 
