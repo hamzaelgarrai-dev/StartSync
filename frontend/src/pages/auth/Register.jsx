@@ -19,11 +19,25 @@ function Register() {
 
   const onSubmit = async(data) =>{
 
-    const response = await api.post(
-      "/register", data)
-    reset()
+    try{
+         await api.post("/register", data)
+            reset()
+            navigate('/login')
+            
+    }catch(error){
+      if (error.response?.status === 422) {
+      const serverErrors = error.response.data.errors
 
-    navigate('/login')
+      Object.entries(serverErrors).forEach(([field, messages]) => {
+        setError(field, {
+          type: "server",
+          message: messages[0],
+        });
+      });
+    }
+
+    }
+    
 
   }
 
@@ -34,7 +48,7 @@ function Register() {
     <div className='min-h-screen max-w-275 mx-auto flex justify-between  items-center mb-22 mt-12'>
 
         <div className='w-[48%] '>
-            <h2 className='text-5xl font-bold text-[#333333] mb-3.5 '>Start for free <br />— no credit card needed.</h2>
+            <h2 className='text-5xl font-bold text-[#333333] mb-3.5 '>Start for free <br/>— no credit card needed.</h2>
             <p className='text-[#044FD2] mb-3.5'>Fast-Track Onboarding puts feedback in your hands in under 5 minutes.</p>
             <p className='text-[#333333]'>No devs. No friction. Just proof of how easy great tools should be.</p>
         </div>

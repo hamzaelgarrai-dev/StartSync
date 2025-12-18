@@ -1,31 +1,25 @@
-import React from 'react'
-import { useState } from 'react'
 import { useNavigate } from "react-router-dom"
 import api from "../../services/api"
+import { useForm } from "react-hook-form"
 
 function Login() {
 
-    const [email, setEmail] = useState('')
-    const [password, setPassword] = useState('')
-    const [errors, setErrors] = useState({});
-    const [loading, setLoading] = useState(false)
     const navigate = useNavigate()
 
-    const handleSubmit = async (e) => {
-  e.preventDefault()
-    setLoading(true)
-    setErrors({})
+
+    const {
+    register,
+    handleSubmit,
+    formState: { errors , isSubmitting},
+  } = useForm()
+
+
+  const onSubmit = async(data) =>{
 
     try {
-    const response = await api.post(
-      "/login",{  
-        email,
-        password,    
-      }
 
-      
-      
-    );
+      const response = await api.post("/login", data)
+   
 
     const { access_token, user } = response.data
 
@@ -46,27 +40,28 @@ function Login() {
         navigate('/client/dashboard')
       } else {
         
-        setErrors({ general: 'Unauthorized role' })
+        alert("role permision denied")
 
       }
+      
+      
+    } catch (error) {
+      if (error.response?.status === 422) {
+      const serverErrors = error.response.data.errors
 
-
-  } catch (error) {
-    console.log('Full error:', error)
-    console.log('Response data:', error.response?.data)
-    
-    if (error.response?.status === 422) {
-      setErrors(error.response.data.errors)
-      console.log('Validation errors:', error.response.data.errors)
-    } else {
-      setErrors({ general: 'login failed. Please try again.' })
+      Object.entries(serverErrors).forEach(([field, messages]) => {
+        setError(field, {
+          type: "server",
+          message: messages[0],
+        });
+      });
     }
-  } finally {
-    setLoading(false);
+    }
+
+    
+
   }
 
-
-}
 
 
   return (
@@ -77,19 +72,23 @@ function Login() {
 
             <h2 className='text-5xl font-medium mb-16'>Welcome <span className='text-[#044FD2]'>Back!</span></h2>
 
-            <form className='w-full' onSubmit={handleSubmit}>
+            <form className='w-full' onSubmit={handleSubmit(onSubmit)}>
                 <div className='flex flex-col  mb-5'>
                     <label className='mb-5' htmlFor="email">Email Address</label>
-                    <input type='email' required value={email} onChange={(e)=>setEmail(e.target.value)} className=' h-12 rounded-4xl bg-[#F4F8FC] border border-[#D7D7D7] focus:outline-none focus:ring-1 focus:ring-blue-300 px-4' placeholder='Email...'></input>
+                    <input type='email' {...register("email",{required:"email is required"})} className=' h-12 rounded-4xl bg-[#F4F8FC] border border-[#D7D7D7] focus:outline-none focus:ring-1 focus:ring-blue-300 px-4' placeholder='Email...'></input>
+                    {errors.email && (<p className="text-red-500">{`${errors.email.message}`}</p>)}
                 </div>
 
                 <div className='flex flex-col mb-10 '>
                     <label className='mb-5' htmlFor="password">Password</label>
-                    <input type='password' required onChange={(e)=>setPassword(e.target.value)} className=' h-12 rounded-4xl bg-[#F4F8FC] border border-[#D7D7D7] focus:outline-none focus:ring-1 focus:ring-blue-300 px-4' placeholder='Enter your Password'></input>
+                    <input type='password' {...register("password", {required:"password is required" , minLength:{value:6 , message:"password must be more than 6 characters"}})} 
+                     className=' h-12 rounded-4xl bg-[#F4F8FC] border border-[#D7D7D7] focus:outline-none focus:ring-1 focus:ring-blue-300 px-4' placeholder='Enter your Password'></input>
+                     {errors.password && (<p className="text-red-500">{`${errors.password.message}`}</p>)}
                 </div>
 
                 <div className='flex flex-col justify-center items-center space-y-3.5'>
-                    <button type='submit' className='w-full h-12 bg-[#0059F3] rounded-4xl flex justify-center items-center text-white cursor-pointer'>Sign In</button>
+                    <button disabled={isSubmitting} type='submit'
+                     className=' disabled:bg-gray-300 w-full h-12 bg-[#0059F3] rounded-4xl flex justify-center items-center text-white cursor-pointer'>Sign In</button>
                     <p>Don’t Have an account ? <span className='text-[#044FD2]'>Create an Account</span></p>
                 </div>
                 
