@@ -4,7 +4,7 @@ import React from 'react'
 function Footer() {
   return (
 
-    <div className='w-full  h-70 flex justify-between mt-20'>
+    <div className='max-w-7xl mx-auto  h-65 flex justify-between mt-20'>
 
         <div className=' w-80 h-full'>
 
@@ -27,7 +27,7 @@ function Footer() {
 
         <div className='  h-full'>
 
-            <div className=' font-semibold text-[18px] text-[#333333] cursor-pointer mb-5'>Useful Links</div>
+            <div className=' font-medium text-[20px] text-[#333333] cursor-pointer mb-5'>Useful Links</div>
 
             <div className='flex flex-col space-y-3.5 text-[#909090] text-[16px] '>
 
@@ -43,7 +43,7 @@ function Footer() {
 
         <div className='  h-full'>
 
-            <div className=' font-semibold text-[18px] text-[#333333] cursor-pointer mb-5'>Follow Us</div>
+            <div className=' font-medium text-[20px] text-[#333333] cursor-pointer mb-5'>Follow Us</div>
 
             <div className='flex flex-col space-y-3.5 text-[#909090] text-[16px]'>
 
@@ -54,16 +54,16 @@ function Footer() {
             </div>
         </div>
 
-        <div className=' w-82 h-full'>
+        <div className=' w-90 h-full'>
 
-            <div className=' font-semibold text-[18px] text-[#333333] cursor-pointer mb-5'>Subscribe our newsletter</div>
+            <div className=' font-medium text-[24px] text-[#333333] cursor-pointer mb-5'>Subscribe our newsletter</div>
 
                 <form className='relative'>
 
-                    <input className='w-82 h-12 rounded-4xl bg-[#F4F8FC] border border-[#D7D7D7] focus:outline-none focus:ring-1 focus:ring-blue-300 px-4 relative' placeholder='Email...'>
+                    <input className='w-82 h-14 rounded-4xl bg-[#F4F8FC] border border-[#D7D7D7] focus:outline-none focus:ring-1 focus:ring-blue-300 px-4 relative' placeholder='Email...'>
 
                     </input>
-                    <button className='bg-linear-to-r from-[#005BF8] to-[#0047C7] w-24 h-10 absolute right-1 top-1/2 -translate-y-1/2 rounded-4xl text-white cursor-pointer' >Subscribe</button>
+                    <button className='bg-linear-to-r from-[#005BF8] to-[#0047C7] w-25 h-11.5 absolute right-10 top-1/2 -translate-y-1/2 rounded-4xl text-white cursor-pointer' >Subscribe</button>
 
                 </form>
                 

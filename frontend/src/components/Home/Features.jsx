@@ -8,7 +8,7 @@ function Features() {
 
         <div className='flex justify-between mb-12'>
 
-            <h2 className='font-medium tracking-[-0.02em] text-[64px] max-w-3xl leading-tight'>Everything you need for better <span className='text-[#044FD2]'>feedback</span></h2>
+            <h2 className='font-medium tracking-[-0.02em] text-[64px] max-w-3xl leading-tight'>Everything You Need For Better <span className='text-[#044FD2]'>Feedback</span></h2>
 
             <div className='flex items-end'>
                 <StartNowBtn/>
@@ -19,8 +19,8 @@ function Features() {
 
         <div className='flex justify-between'>
 
-             <div className='rounded-3xl border border-[#E3EAF7] p-2 bg-[#F4F8FC]'>
-                <div className='rounded-2xl border border-[#EDF2FB] bg-white px-2 py-6 flex items-center gap-3'>
+             <div className='rounded-3xl border border-[#e0e7f5] p-2 bg-[#F4F8FC]'>
+                <div className='rounded-2xl border border-[#e0e7f5] bg-white px-2 py-6 flex items-center gap-3'>
                 <div className='bg-linear-to-b from-[#0047C7] to-[#5A92F2] w-18 h-18 rounded-full flex justify-center items-center text-[#EFF5FF]'><Camera className='size-8' /></div>
                 <div className='flex flex-col'>
                     <p className='font-medium mb-1.5'>Visual Feedback</p>
@@ -30,8 +30,8 @@ function Features() {
              </div>
             </div>
 
-            <div className='rounded-3xl border border-[#E3EAF7] p-2 bg-[#F4F8FC]'>
-                <div className='rounded-2xl border border-[#EDF2FB] bg-white px-2 py-6 flex items-center gap-3'>
+            <div className='rounded-3xl border border-[#e0e7f5] p-2 bg-[#F4F8FC]'>
+                <div className='rounded-2xl border border-[#e0e7f5] bg-white px-2 py-6 flex items-center gap-3'>
                 <div className='bg-linear-to-b from-[#0047C7] to-[#5A92F2] w-18 h-18 rounded-full flex justify-center items-center text-[#EFF5FF]'><Camera className='size-8' /></div>
                 <div className='flex flex-col'>
                     <p className='font-medium mb-1.5'>Visual Feedback</p>
@@ -42,8 +42,8 @@ function Features() {
             </div>
 
 
-            <div className='rounded-3xl border border-[#E3EAF7] p-2 bg-[#F4F8FC]'>
-                <div className='rounded-2xl border border-[#EDF2FB] bg-white px-2 py-6 flex items-center gap-3'>
+            <div className='rounded-3xl border border-[#e0e7f5] p-2 bg-[#F4F8FC]'>
+                <div className='rounded-2xl border border-[#e0e7f5] bg-white px-2 py-6 flex items-center gap-3'>
                 <div className='bg-linear-to-b from-[#0047C7] to-[#5A92F2] w-18 h-18 rounded-full flex justify-center items-center text-[#EFF5FF]'><Camera className='size-8' /></div>
                 <div className='flex flex-col'>
                     <p className='font-medium mb-1.5'>Visual Feedback</p>

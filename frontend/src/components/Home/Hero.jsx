@@ -7,7 +7,7 @@ import rightglass from "../../assets/images/hero/right.webp"
 function Hero() {
   return (
 
-    <section className='bg-[linear-gradient(180deg,#0052CC_10%,#3B8AEF_90%,#0052CC_100%)] w-full min-h-screen rounded-[44px] mb-28 flex flex-col justify-start items-center mx-auto pt-16'>
+    <section className='bg-[linear-gradient(180deg,#0052CC_10%,#3B8AEF_90%,#0052CC_100%)] w-full min-h-screen rounded-[40px] mb-28 flex flex-col justify-start items-center mx-auto pt-16'>
 
         <h1 className='text-7xl font-medium tracking-[-0.02em] max-w-7xl  text-white text-center leading-tight '>Elevate Your Feedback <br /> Management with StartSync </h1>
 

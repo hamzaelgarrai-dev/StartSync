@@ -16,9 +16,9 @@ function App() {
         <Navbar/>
 
         {/* <Login/> */}
-        {/* <Register/> */}
+        <Register/>
         
-        <Home/>
+        {/* <Home/> */}
 
         <Footer/>
 

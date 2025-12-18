@@ -16,8 +16,8 @@ function Testimonials() {
 
             <div className=' min-h-60 '>
 
-              <div className='rounded-3xl border border-[#E3EAF7] p-2 bg-[#F4F8FC]'>
-                    <div className='rounded-2xl border h-62 border-[#EDF2FB] bg-white px-2 py-6 flex flex-col items-start pl-6 gap-4'>
+              <div className='rounded-3xl border border-[#e0e7f5] p-2 bg-[#F4F8FC]'>
+                    <div className='rounded-2xl border h-62 border-[#e0e7f5] bg-white px-2 py-6 flex flex-col items-start pl-6 gap-4'>
                         <div className='flex space-x-2.5'>
                              <div className=' w-18 h-18 rounded-full overflow-hidden '>
 
@@ -67,8 +67,8 @@ function Testimonials() {
 
 
             <div className=' min-h-50 col-span-2'>
-                <div className='rounded-3xl border  border-[#E3EAF7] p-2 bg-[#F4F8FC]'>
-                <div className='rounded-2xl border h-55 border-[#EDF2FB] bg-white px-2 py-6 flex flex-col items-start pl-6 gap-4'>
+                <div className='rounded-3xl border  border-[#e0e7f5] p-2 bg-[#F4F8FC]'>
+                <div className='rounded-2xl border h-55 border-[#e0e7f5] bg-white px-2 py-6 flex flex-col items-start pl-6 gap-4'>
                 <div className='flex space-x-2.5'>
                              <div className=' w-18 h-18 rounded-full overflow-hidden '>
 
@@ -109,8 +109,8 @@ function Testimonials() {
             </div>
             </div>
             <div className=' min-h-50 col-span-2'>
-                <div className='rounded-3xl border border-[#E3EAF7] p-2 bg-[#F4F8FC]'>
-                <div className='rounded-2xl border h-55 border-[#EDF2FB] bg-white px-2 py-6 flex flex-col items-start  gap-4 pl-6'>
+                <div className='rounded-3xl border border-[#e0e7f5] p-2 bg-[#F4F8FC]'>
+                <div className='rounded-2xl border h-55 border-[#e0e7f5] bg-white px-2 py-6 flex flex-col items-start  gap-4 pl-6'>
                 <div className='flex space-x-2.5'>
                              <div className=' w-18 h-18 rounded-full overflow-hidden '>
 
@@ -151,8 +151,8 @@ function Testimonials() {
             </div>
             </div>
             <div className='min-h-50'>
-                <div className='rounded-3xl border border-[#E3EAF7] p-2 bg-[#F4F8FC]'>
-                <div className='rounded-2xl border h-62 border-[#EDF2FB] bg-white px-2 py-6 flex flex-col items-start gap-4 pl-6'>
+                <div className='rounded-3xl border border-[#e0e7f5] p-2 bg-[#F4F8FC]'>
+                <div className='rounded-2xl border h-62 border-[#e0e7f5] bg-white px-2 py-6 flex flex-col items-start gap-4 pl-6'>
                 <div className='flex space-x-2.5'>
                              <div className=' w-18 h-18 rounded-full overflow-hidden '>
 
