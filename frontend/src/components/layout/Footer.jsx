@@ -1,7 +1,44 @@
 import React from 'react'
+import api from "../../services/api"
+import { useForm } from "react-hook-form"
 
 
 function Footer() {
+
+     const {
+    register,
+    setError,
+    handleSubmit,
+    reset,
+    formState: { errors , isSubmitting},
+  } = useForm()
+
+
+  const onSubmit = async(data) =>{
+
+    try{
+         await api.post("/newsletter/subscribe", data)
+         
+            reset()
+            
+    }catch(error){
+      if (error.response?.status === 422) {
+      const serverErrors = error.response.data.errors
+
+      Object.entries(serverErrors).forEach(([field, messages]) => {
+        setError(field, {
+          type: "server",
+          message: messages[0],
+        });
+      });
+    }
+
+    }
+    
+
+  }
+
+
   return (
 
     <div className='max-w-7xl mx-auto  h-65 flex justify-between mt-20'>
@@ -59,12 +96,14 @@ function Footer() {
             <div className=' font-medium text-[24px] text-[#333333] cursor-pointer mb-5'>Subscribe our newsletter</div>
             
 
-                <form className='relative'>
+                <form className='relative' onSubmit={handleSubmit(onSubmit)}>
 
-                    <input className='w-82 h-14 rounded-4xl bg-[#F4F8FC] border border-[#D7D7D7] focus:outline-none focus:ring-1 focus:ring-blue-300 px-4 relative' placeholder='Email...'>
+                    <input {...register("email",{required:"email is required"})}
+                     type='email' className='w-82 h-14 rounded-4xl bg-[#F4F8FC] border border-[#D7D7D7] focus:outline-none focus:ring-1 focus:ring-blue-300 px-4 relative' placeholder='Email...'>
 
                     </input>
-                    <button className='bg-linear-to-r from-[#005BF8] to-[#0047C7] w-25 h-11.5 absolute right-10 top-1/2 -translate-y-1/2 rounded-4xl text-white cursor-pointer' >Subscribe</button>
+                    {errors.email && (<p className="text-red-500">{`${errors.email.message}`}</p>)}
+                    <button type='submit' disabled={isSubmitting} className='disabled:bg-linear-to-r disabled:from-[#bebebe] disabled:to-[#aeb0b4]  bg-linear-to-r from-[#005BF8] to-[#0047C7] w-25 h-11.5 absolute right-10 top-1/2 -translate-y-1/2 rounded-4xl text-white cursor-pointer' >Subscribe</button>
 
                 </form>
                 

@@ -2,8 +2,10 @@
 
 namespace App\Providers;
 
+use App\Events\SubscribtionEvent;
 use App\Events\UserRegistred;
 use App\Listeners\SendRegisterEmail;
+use App\Listeners\SendSubscribtionEmail;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
@@ -24,6 +26,10 @@ class EventServiceProvider extends ServiceProvider
         UserRegistred::class => [
         SendRegisterEmail::class
         ],
+
+        SubscribtionEvent::class =>[
+            SendSubscribtionEmail::class
+        ]
     ];
 
     /**

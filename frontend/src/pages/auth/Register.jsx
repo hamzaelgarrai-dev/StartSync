@@ -11,6 +11,7 @@ function Register() {
   const {
     register,
     handleSubmit,
+    setError,
     reset,
     getValues,
     formState: { errors , isSubmitting},

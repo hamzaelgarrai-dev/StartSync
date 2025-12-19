@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\UserRegistred;
 use App\Http\Requests\LoginRequest;
 use App\Http\Requests\RegisterRequest;
 use App\Models\User;
@@ -13,11 +14,14 @@ class AuthController extends Controller
 {
 
     public function register(RegisterRequest $request)      {
-            User::create([
+
+          $user = User::create([
                 'name' => $request->name,
                 'email' => $request->email,
                 'password' => $request->password, 
             ]);
+
+            UserRegistred::dispatch($user);
 
             return response()->json([
                 'message' => 'Registration successful',
