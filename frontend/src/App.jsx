@@ -6,6 +6,8 @@ import Register from './pages/auth/Register'
 import Home from './pages/Home'
 import { Routes, Route } from "react-router-dom";
 import DashboardLayout from './components/layout/DashboardLayout'
+import ManagerDashboard from './pages/manager/ManagerDashboard'
+import MemberDashboard from './pages/member/MemberDashboard'
 
 
 function App() {
@@ -31,7 +33,9 @@ function App() {
         
 
         </div>
-       <DashboardLayout/>
+       {/* <DashboardLayout/> */}
+       <ManagerDashboard/>
+        {/* <MemberDashboard/> */}
     </>
     
     

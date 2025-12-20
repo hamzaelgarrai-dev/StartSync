@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\NewsLetter;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -12,6 +13,6 @@ class NewsLetterSeeder extends Seeder
      */
     public function run(): void
     {
-        //
+        NewsLetter::factory()->count(10)->create();
     }
 }

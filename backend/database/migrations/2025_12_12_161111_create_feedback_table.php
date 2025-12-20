@@ -14,13 +14,13 @@ return new class extends Migration
         Schema::create('feedback', function (Blueprint $table) {
             $table->id();
             $table->string('title');
-            $table->string('description');
-            $table->string('priority');
+            $table->text('description');
+            $table->string('priority')->default('medium');
             $table->string('status')->default('open');
             $table->foreignId('project_id')->constrained('projects')->onDelete('cascade');
             $table->foreignId('client_id')->constrained('users')->onDelete('cascade');
-            $table->foreignId('AssignedToUser_id')->nullable()->constrained('users')->onDelete('cascade');
-            $table->foreignId('AssignedToTeam_id')->nullable()->constrained('teams')->onDelete('cascade');
+            $table->foreignId('assigned_to_user_id')->nullable()->constrained('users')->onDelete('cascade');
+            $table->foreignId('assigned_to_team_id')->nullable()->constrained('teams')->onDelete('cascade');
             $table->timestamps();
         });
     }

@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Feedback;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -17,7 +18,8 @@ class ScreenshotFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'image_url' => fake()->imageUrl(1920, 1080, 'business', true, 'Screenshot'),
+            'feedback_id' => Feedback::factory(),
         ];
     }
 }

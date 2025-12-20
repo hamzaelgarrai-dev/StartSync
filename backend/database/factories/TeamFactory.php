@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Project;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -17,7 +18,9 @@ class TeamFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'name' => fake()->randomElement(['Frontend Team','Backend Team','Design Team',   'QA Team','DevOps Team','Mobile Team',
+            ]),
+            'project_id' => Project::factory(),
         ];
     }
 }

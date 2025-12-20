@@ -1,5 +1,4 @@
-// components/layout/DashboardLayout.jsx
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom'
 
 const DashboardLayout = ({
   children,
@@ -11,7 +10,7 @@ const DashboardLayout = ({
   userRole = 'Project Manager',
   userAvatar,
 }) => {
-  const location = useLocation();
+  const location = useLocation()
 
   return (
     <div className="flex h-screen w-full bg-[#F9FAFB]">
