@@ -16,82 +16,59 @@ jobs:
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
 
-      - name: Validate Docker Compose
-        run: |
-          docker compose config
-
       - name: Build Docker images
-        run: |
-          docker compose build --no-cache
+        run: docker compose build
 
       - name: Start containers
-        run: |
-          docker compose up -d
+        run: docker compose up -d
 
-      - name: Wait for MySQL to be ready
+      - name: Wait for MySQL
         run: |
-          echo "Waiting for MySQL to be ready..."
-          for i in {1..30}; do
-            if docker compose exec -T mysql mysqladmin ping -h localhost --silent; then
-              echo "MySQL is ready!"
-              break
-            fi
-            echo "Waiting for MySQL... ($i/30)"
-            sleep 2
-          done
+          echo "Waiting for MySQL..."
+          timeout 60 bash -c 'until docker compose exec -T mysql mysqladmin ping -h localhost --silent 2>/dev/null; do sleep 2; done'
+          echo "MySQL is ready!"
 
-      - name: Check container status
-        run: |
-          docker compose ps
+      - name: Show running containers
+        run: docker compose ps
 
-      # 🆕 ADD THIS STEP: Install Composer dependencies
+      # Install dependencies
       - name: Install Composer dependencies
         run: |
-          echo "Installing Composer dependencies..."
-          docker compose exec -T laravel composer install --no-interaction --prefer-dist --optimize-autoloader
+          docker compose exec -T laravel composer install --no-dev --optimize-autoloader
 
-      # 🆕 ADD THIS STEP: Generate Laravel key
-      - name: Generate application key
+      # Setup environment - single command
+      - name: Setup Laravel
         run: |
-          echo "Generating app key..."
-          docker compose exec -T laravel php artisan key:generate --force
+          docker compose exec -T laravel sh -c '
+            cp .env.example .env &&
+            php artisan key:generate --force &&
+            php artisan migrate --force
+          '
 
-      - name: Run Laravel migrations
+      # Laravel checks
+      - name: Test Laravel
         run: |
-          echo "Running Laravel migrations..."
-          docker compose exec -T laravel php artisan migrate --force
-
-      - name: Laravel health check
-        run: |
-          echo "Checking Laravel..."
           docker compose exec -T laravel php artisan --version
-          docker compose exec -T laravel php artisan config:clear
           docker compose exec -T laravel php artisan route:list
 
-      - name: Install frontend dependencies
+      # React build
+      - name: Build React
         run: |
-          echo "Installing React dependencies..."
-          docker compose exec -T react npm ci
+          docker compose exec -T react sh -c '
+            npm ci &&
+            npm run build
+          '
 
-      - name: Build frontend
-        run: |
-          echo "Building React app..."
-          docker compose exec -T react npm run build
+      # Verify
+      - name: Verify React build
+        run: docker compose exec -T react ls -la /app/dist
 
-      - name: Verify frontend build
-        run: |
-          echo "Checking if build was created..."
-          docker compose exec -T react ls -la /app/dist
-
-      - name: Show Docker logs on failure
+      # Show logs on failure
+      - name: Show logs
         if: failure()
-        run: |
-          echo "=== Docker Compose Logs ==="
-          docker compose logs
-          echo "=== Container Status ==="
-          docker compose ps
+        run: docker compose logs
 
-      - name: Stop and remove containers
+      # Cleanup
+      - name: Cleanup
         if: always()
-        run: |
-          docker compose down -v
+        run: docker compose down -v
