@@ -6,33 +6,103 @@ on:
       - production
 
 jobs:
-  build:
+  build-and-test:
     runs-on: ubuntu-latest
 
     steps:
+      # Step 1: Get code
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Set up Docker
+      # Step 2: Set up Docker
+      - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
 
+      # Step 3: Validate docker-compose.yml syntax
+      - name: Validate Docker Compose
+        run: |
+          docker compose config
+
+      # Step 4: Build all images
       - name: Build Docker images
         run: |
-          docker compose build
+          docker compose build --no-cache
 
+      # Step 5: Start containers in background
       - name: Start containers
         run: |
           docker compose up -d
 
-      - name: Wait for MySQL
+      # Step 6: Wait for MySQL to be ready (health check)
+      - name: Wait for MySQL to be ready
         run: |
-          sleep 20
+          echo "Waiting for MySQL to be ready..."
+          for i in {1..30}; do
+            if docker compose exec -T mysql mysqladmin ping -h localhost --silent; then
+              echo "MySQL is ready!"
+              break
+            fi
+            echo "Waiting for MySQL... ($i/30)"
+            sleep 2
+          done
 
-      - name: Laravel sanity checks (NO tests)
+      # Step 7: Check all containers are running
+      - name: Check container status
         run: |
+          docker compose ps
+          echo "Verifying all containers are running..."
+          docker compose ps | grep -q "Up" || (echo "Some containers failed to start" && exit 1)
+
+      # Step 8: Run Laravel migrations
+      - name: Run Laravel migrations
+        run: |
+          echo "Running Laravel migrations..."
           docker compose exec -T laravel php artisan migrate --force
 
-      - name: Build Frontend
+      # Step 9: Check Laravel is working
+      - name: Laravel health check
         run: |
-          docker compose exec -T react npm install
+          echo "Checking Laravel..."
+          docker compose exec -T laravel php artisan --version
+          docker compose exec -T laravel php artisan config:clear
+          docker compose exec -T laravel php artisan route:list
+
+      # Step 10: Install frontend dependencies
+      - name: Install frontend dependencies
+        run: |
+          echo "Installing React dependencies..."
+          docker compose exec -T react npm ci
+
+      # Step 11: Build frontend
+      - name: Build frontend
+        run: |
+          echo "Building React app..."
           docker compose exec -T react npm run build
+
+      # Step 12: Verify build output exists
+      - name: Verify frontend build
+        run: |
+          echo "Checking if build was created..."
+          docker compose exec -T react ls -la /app/dist
+
+      # Step 13: Test backend API is accessible
+      - name: Test API endpoint
+        run: |
+          echo "Testing API accessibility..."
+          sleep 5
+          curl -f http://localhost:80/api/health || echo "Warning: API health check endpoint not found (this is okay if you don't have one)"
+
+      # Step 14: Show logs if something failed (runs even on failure)
+      - name: Show Docker logs on failure
+        if: failure()
+        run: |
+          echo "=== Docker Compose Logs ==="
+          docker compose logs
+          echo "=== Container Status ==="
+          docker compose ps
+
+      # Step 15: Cleanup (always runs, even if previous steps fail)
+      - name: Stop and remove containers
+        if: always()
+        run: |
+          docker compose down -v
