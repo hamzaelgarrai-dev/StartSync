@@ -1,0 +1,74 @@
+name: Production Checks
+
+on:
+  pull_request:
+    branches:
+      - production
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Build Docker images
+        run: docker compose build
+
+      - name: Start containers
+        run: docker compose up -d
+
+      - name: Wait for MySQL
+        run: |
+          echo "Waiting for MySQL..."
+          timeout 60 bash -c 'until docker compose exec -T mysql mysqladmin ping -h localhost --silent 2>/dev/null; do sleep 2; done'
+          echo "MySQL is ready!"
+
+      - name: Show running containers
+        run: docker compose ps
+
+      # Install dependencies
+      - name: Install Composer dependencies
+        run: |
+          docker compose exec -T laravel composer install --no-dev --optimize-autoloader
+
+      # Setup environment - single command
+      - name: Setup Laravel
+        run: |
+          docker compose exec -T laravel sh -c '
+            cp .env.example .env &&
+            php artisan key:generate --force &&
+            php artisan migrate --force
+          '
+
+      # Laravel checks
+      - name: Test Laravel
+        run: |
+          docker compose exec -T laravel php artisan --version
+          docker compose exec -T laravel php artisan route:list
+
+      # React build
+      - name: Build React
+        run: |
+          docker compose exec -T react sh -c '
+            npm ci &&
+            npm run build
+          '
+
+      # Verify
+      - name: Verify React build
+        run: docker compose exec -T react ls -la /app/dist
+
+      # Show logs on failure
+      - name: Show logs
+        if: failure()
+        run: docker compose logs
+
+      # Cleanup
+      - name: Cleanup
+        if: always()
+        run: docker compose down -v
