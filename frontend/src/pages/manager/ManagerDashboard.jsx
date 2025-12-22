@@ -1,7 +1,12 @@
-// pages/manager/Dashboard.jsx
 import DashboardLayout from '../../components/layout/DashboardLayout'
-import{ChartNoAxesGantt , Users , FolderKanban, HardDriveDownload} from "lucide-react"
+import{ChartNoAxesGantt , Users , FolderKanban, HardDriveDownload, Plus} from "lucide-react"
 import { useLocation } from 'react-router-dom'
+import { Project } from './Project';
+import { Overview } from './Overview';
+import { Team } from './Team';
+
+
+
 
 
 // import { useAuth } from '../../context/AuthContext';
@@ -17,15 +22,18 @@ const ManagerDashboard = () => {
   // const { user } = useAuth();
 
   const { pathname } = useLocation();
-  const title = pathname
-  .substring(pathname.lastIndexOf('/') + 1)
+  const currentPage = pathname.substring(pathname.lastIndexOf('/') + 1)
 
-  const headerActions = (
+  let headerActions
+
+  if(currentPage === "overview" ){
+
+   headerActions = (
 
     <div className='flex justify-between items-center'>
 
       <div>
-        <p className='text-xl font-semibold'>{title}</p>
+        <p className='text-xl font-semibold'>{currentPage}</p>
       </div>
 
       <div className="flex items-center space-x-4">
@@ -46,8 +54,65 @@ const ManagerDashboard = () => {
 
 
     </div>
+
+
+
     
   );
+
+  }
+
+  
+  if(currentPage === "team"){
+      headerActions = (
+
+          <div className='flex justify-between items-center'>
+      <div>
+        <p className='text-xl font-semibold'>{currentPage}</p>
+      </div>
+
+      <button className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 flex items-center space-x-2 cursor-pointer">
+        <span><Plus /></span>
+        <span>Add a Team</span>
+      </button>
+    </div>
+
+      )
+
+  }
+
+  if(currentPage === "projects" ){
+
+    headerActions = (
+    <div className='flex justify-between items-center'>
+      <div>
+        <p className='text-xl font-semibold'>{currentPage}</p>
+      </div>
+
+      <div className='py-1'>
+        <input placeholder='Search...' type="text" className='border border-gray-400 rounded-md  h-8  px-4 ' />
+      </div>
+    </div>
+  )
+  }
+
+  const renderContent = ()=>{
+
+    switch(currentPage){
+      case "overview":
+        return <div> <Overview/> </div>
+      case "projects":
+        return <div><Project/></div>
+      case "team":
+      return <div><Team/></div>
+    }
+  }
+ 
+
+  
+
+
+
 
   return (
     <DashboardLayout
@@ -59,10 +124,12 @@ const ManagerDashboard = () => {
       // userRole="Project Manager"
       // userAvatar={user?.avatar}
     >
+
       {/* Your dashboard content */}
       <div>
-        <h1 className="text-2xl font-bold mb-4">Dashboard Overview</h1>
-        {/* Stats, charts, etc. */}
+
+        {renderContent()}
+
       </div>
     </DashboardLayout>
   );

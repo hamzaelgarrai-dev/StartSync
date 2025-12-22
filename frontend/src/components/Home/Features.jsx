@@ -8,7 +8,7 @@ function Features() {
 
         <div className='flex justify-between mb-12'>
 
-            <h2 className='font-medium tracking-[-0.02em] text-[64px] max-w-3xl leading-tight'>Everything You Need For Better <span className='text-[#044FD2]'>Feedback</span></h2>
+            <h2 className='font-medium tracking-[-0.02em] text-[58px] max-w-3xl leading-tight'>Everything You Need For Better <span className='text-[#044FD2]'>Feedback</span></h2>
 
             <div className='flex items-end'>
                 <StartNowBtn/>

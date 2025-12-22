@@ -14,9 +14,9 @@ const DashboardLayout = ({
 
   return (
     <div className="flex h-screen w-full bg-[#F9FAFB]">
-      {/* Sidebar */}
+      
       <aside className="w-58 bg-white border-r border-[#E5E7EB] flex flex-col">
-        {/* Logo */}
+        
         <div className="p-4 border-b border-gray-200">
           <div className="flex items-center space-x-3">
             <div className="w-10 h-10 bg-blue-600 rounded-lg flex items-center justify-center text-white font-bold">
@@ -29,7 +29,7 @@ const DashboardLayout = ({
           </div>
         </div>
 
-        {/* Menu */}
+       
         <nav className="p-4 flex-1">
           <p className="text-xs font-semibold text-gray-400 mb-3 uppercase">
             Main Menu
@@ -57,7 +57,7 @@ const DashboardLayout = ({
           </ul>
         </nav>
 
-        {/* User Profile */}
+     
         <div className="p-4 border-t border-gray-200">
           <div className="flex items-center space-x-3">
             {userAvatar ? (
@@ -83,9 +83,9 @@ const DashboardLayout = ({
         </div>
       </aside>
 
-      {/* Main Content */}
+      
       <div className="flex-1 flex flex-col overflow-hidden">
-        {/* Header */}
+        
         <header className="bg-white border-b border-gray-200 px-6 py-4">
           {headerActions}
         </header>

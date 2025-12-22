@@ -8,6 +8,9 @@ import { Routes, Route } from "react-router-dom";
 import DashboardLayout from './components/layout/DashboardLayout'
 import ManagerDashboard from './pages/manager/ManagerDashboard'
 import MemberDashboard from './pages/member/MemberDashboard'
+import CreateProjectModal from './components/modals/CreateProjectModal'
+import CreatTeamModal from './components/modals/CreatTeamModal'
+import AddMemberModal from './components/modals/AddMemberModal'
 
 
 function App() {
@@ -35,7 +38,12 @@ function App() {
         </div>
        {/* <DashboardLayout/> */}
        <ManagerDashboard/>
+      
         {/* <MemberDashboard/> */}
+
+        {/* <CreateProjectModal/> */}
+        {/* <CreatTeamModal/> */}
+        {/* <AddMemberModal/> */}
     </>
     
     
