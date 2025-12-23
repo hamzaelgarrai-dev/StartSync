@@ -1,4 +1,4 @@
-
+import { Activity } from 'react'
 
 export const Team = () =>{
 

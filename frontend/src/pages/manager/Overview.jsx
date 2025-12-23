@@ -68,7 +68,7 @@ export  const Overview = () => {
   return (
      <div className='flex flex-col'>
         
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-6">
+      <div className="grid grid-cols-4 gap-6 mb-6">
         
         
         <StatsCard
@@ -101,12 +101,12 @@ export  const Overview = () => {
           color="purple"
         />
 
-      </div>
-        <div className='flex flex-col'>
+      </div >
+        <div className='flex flex-col rounded-3xl border border-[#e0e7f5] p-2 bg-[#F4F8FC]'>
 
-            <p className='font-medium mb-5'>Issue Insights</p>
+           
 
-            <div className="bg-white rounded-lg shadow">
+            <div className="rounded-2xl border border-[#e0e7f5] bg-white px-2 py-6 ">
             
             <div className="flex items-center justify-between p-6 py-4 ">
                 <h2 className="text-lg font-semibold text-gray-900">Recent Issues</h2>

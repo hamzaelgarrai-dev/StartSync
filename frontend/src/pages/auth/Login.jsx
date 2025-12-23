@@ -1,10 +1,14 @@
 import { useNavigate } from "react-router-dom"
 import api from "../../services/api"
 import { useForm } from "react-hook-form"
+import { useLoginMutation } from '../../features/auth/authApiSlice';
+import { useDispatch } from 'react-redux'
+import { setCredentials } from '../../features/auth/authSlice'
 
 function Login() {
 
     const navigate = useNavigate()
+    const dispatch = useDispatch()
 
 
     const {
@@ -12,38 +16,35 @@ function Login() {
     handleSubmit,
     setError,
     formState: { errors , isSubmitting},
-  } = useForm()
+  } = useForm({
+    defaultValues: {
+      email: '',
+      password: '',
+    },
+  })
+
+  const [login, { isLoading}] = useLoginMutation();
 
 
   const onSubmit = async(data) =>{
 
     try {
 
-      const response = await api.post("/login", data)
+       const userData = await login({
+      email: data.email,
+      password: data.password,
+    }).unwrap()
+
+    dispatch(setCredentials(userData))
+      
    
 
-    const { access_token, user } = response.data
+   const role = userData.user.role
 
-      if (!user || !user.role) {
-        throw new Error('Invalid login response')
-      }
-
-      localStorage.setItem('access_token', access_token)
-      localStorage.setItem('user', JSON.stringify(user))
-
-
-    const role = user.role
-      if (role === 'project_manager') {  
-        navigate('/manager/dashboard')
-      } else if (role === 'project_member') {
-        navigate('/member/dashboard')
-      } else if (role === 'client') {
-        navigate('/client/dashboard')
-      } else {
-        
-        alert("role permision denied")
-
-      }
+    if (role === 'project_manager') navigate('/manager/dashboard')
+    else if (role === 'project_member') navigate('/member/dashboard')
+    else if (role === 'client') navigate('/client/dashboard')
+    else navigate('/unauthorized')
       
       
     } catch (error) {
@@ -75,6 +76,12 @@ function Login() {
   return (
 
     <div className='min-h-screen'>
+
+      {isLoading && (
+        <div className="absolute inset-0 bg-white/70 flex items-center justify-center z-50">
+          <p className="text-lg font-medium">Signing you in...</p>
+        </div>
+      )}
 
         <div className=' w-112.5 h-112.5 mt-18 flex flex-col items-start mx-auto  '>
 

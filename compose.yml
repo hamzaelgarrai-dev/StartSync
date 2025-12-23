@@ -33,6 +33,7 @@ services:
       - "traefik.http.middlewares.laravel-cors.headers.accesscontrolalloworiginlist=http://frontend.localhost"
       - "traefik.http.middlewares.laravel-cors.headers.accesscontrolallowheaders=Content-Type,Authorization,X-Requested-With,Accept"
       - "traefik.http.middlewares.laravel-cors.headers.accesscontrolmaxage=100"
+      - "traefik.http.middlewares.laravel-cors.headers.accesscontrolallowcredentials=true" 
       - "traefik.http.middlewares.laravel-cors.headers.addvaryheader=true"
       
       # Apply CORS middleware to router

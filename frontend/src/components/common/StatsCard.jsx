@@ -11,17 +11,25 @@ const StatsCard = ({ icon, title, value, color = "blue" }) => {
   };
 
   return (
-    <div className="bg-white rounded-lg shadow p-4">
-      
-      <div className={`w-11 h-11 rounded-lg ${colorVariants[color]} flex items-center justify-center text-2xl mb-4`}>
-        {icon}
-      </div>
+    <div className='rounded-3xl border border-[#e0e7f5] p-2 bg-[#F4F8FC]'>
+        <div className="rounded-2xl border border-[#e0e7f5] bg-white p-4 flex justify-start items-center space-x-4">
+              
+              <div className={`w-11 h-11 rounded-lg ${colorVariants[color]} flex items-center justify-center text-2xl `}>
+                {icon}
+              </div>
 
-      <p className="text-sm text-gray-500 mb-1">{title}</p>
+              <div>
+                <p className="text-[26px] font-bold text-gray-900">{value}</p>
+                <p className="text-sm text-gray-500 mb-1">{title}</p>
+              </div>
+              
 
-      
-      <p className="text-[26px] font-bold text-gray-900">{value}</p>
+              
+              
+            </div>
+
     </div>
+    
   );
 };
 
