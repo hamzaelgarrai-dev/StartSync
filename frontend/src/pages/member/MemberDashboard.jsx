@@ -1,19 +1,19 @@
 // pages/manager/Dashboard.jsx
 import DashboardLayout from '../../components/layout/DashboardLayout'
-import{MessageSquareText, HardDriveDownload} from "lucide-react"
-import { useLocation } from 'react-router-dom'
-import { MyTasks } from './MyTasks';
+import{MessageSquareText, } from "lucide-react"
+import { Outlet, useLocation } from 'react-router-dom'
+import { Feedbacks } from './Feedbacks';
 
 
-// import { useAuth } from '../../context/AuthContext';
 
-const managerMenuItems = [
-  { path: '/member/feedback', label: 'FeedBacks', icon: <MessageSquareText />},
+
+const memberMenuItems = [
+  { path: '/member/dashboard/feedbacks', label: 'FeedBacks', icon: <MessageSquareText />},
   
 ]
 
 const MemberDashboard = () => {
-  // const { user } = useAuth();
+
 
   const { pathname } = useLocation();
   const title = pathname
@@ -31,19 +31,20 @@ const MemberDashboard = () => {
   );
 
   return (
+
     <DashboardLayout
 
-      menuItems={managerMenuItems}
+      menuItems={memberMenuItems}
       headerActions={headerActions}
 
     >
-      {/* Your dashboard content */}
-      <div>
+     
+      
         
-        <MyTasks/>
+        <Outlet/>
 
 
-      </div>
+    
     </DashboardLayout>
   );
 };

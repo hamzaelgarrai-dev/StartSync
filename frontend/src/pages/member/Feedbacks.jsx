@@ -2,7 +2,7 @@ import{ListChecks, CircleCheck, Clock, Dot} from "lucide-react"
 import StatsCard from '../../components/common/StatsCard'
 import { MyTasksCard } from "../../components/common/MyTasksCard"
 
-export const MyTasks = () =>{
+export const Feedbacks = () =>{
 
     return(
 

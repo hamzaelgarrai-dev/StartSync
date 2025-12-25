@@ -25,10 +25,10 @@ class Feedback extends Model
     }
 
     public function assignedUser(){
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class , 'assigned_to_user_id');
     }
 
     public function assignedTeam(){
-        return $this->belongsTo(Team::class);
+        return $this->belongsTo(Team::class , 'assigned_to_team_id');
     }
 }

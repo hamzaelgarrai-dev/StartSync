@@ -98,10 +98,6 @@ const DashboardLayout = ({
 
       
       <div className="flex-1 flex flex-col overflow-hidden pt-2">
-        
-        {/* <header className="px-6 py-4">
-          
-        </header> */}
 
         {/* Page Content */}
         <main className="flex-1 overflow-y-auto p-6 space-y-8">

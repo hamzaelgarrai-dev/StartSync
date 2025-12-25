@@ -40,31 +40,15 @@ function AddMemberModal({ onSubmit }) {
         )}
       </div>
 
-      
-      <div className="flex flex-col gap-1">
-  
-        <input
-          type="text"
-          {...register("email", { required: "Email is required" })}
-          placeholder="Role"
-          className="h-12 rounded-full bg-[#F4F8FC] border border-[#D7D7D7] px-4
-                     focus:outline-none focus:ring-2 focus:ring-blue-300"
-        />
-        {errors.email && (
-            <span className="text-xs text-red-500">
-            {errors.email.message}
-            </span>
-        )}
-        </div>
 
      
       <button
         type="submit"
         disabled={isSubmitting}
         className="h-12 w-full rounded-full bg-[#0059F3] text-white font-medium
-                   hover:bg-[#0047c7] transition disabled:bg-gray-300"
+                   hover:bg-[#0047c7] transition disabled:bg-gray-300 cursor-pointer"
       >
-        {isSubmitting ? "Creating..." : "Create Project"}
+        {isSubmitting ? "Submiting..." : "Submit"}
       </button>
 
     </form>

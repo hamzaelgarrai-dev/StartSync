@@ -12,7 +12,7 @@ class Team extends Model
 
     protected $fillable = ["name","project_id"];
 
-    public function member(){
+    public function members(){
         return $this->hasMany(User::class);
     }
 

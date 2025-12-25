@@ -4,7 +4,7 @@ import { Link, NavLink } from 'react-router-dom'
 
 function Navbar() {
   return (
-    <div className='  h-24 flex items-center justify-between mb-4 max-w-7xl mx-auto px-3'>
+    <div className='  h-24 flex items-center justify-between mb-4 max-w-7xl mx-auto px-6'>
 
         <Link to="/">
             <div className=' font-bold text-[20px] text-[#333333] cursor-pointer'>StartSync</div>

@@ -40,9 +40,10 @@ class ManagerController extends Controller
     ]);
     }
 
-    public function team(){
+    public function teams(){
          try {
-            $team = Team::all(); 
+            $team = Team::with("project" , "members")->withCount('members')
+    ->paginate(10);
 
             return response()->json([
                 'success' => true,

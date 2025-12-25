@@ -1,12 +1,28 @@
+import AddMemberModal from "../../components/modals/AddMemberModal";
 import { useGetTeamsQuery } from "../../features/manager/teamApiSlice"
+import { Activity , useState } from "react";
+
+
+        
+   
+
+
+
 
 export const Team = () =>{
 
-const { data, teamsLoading } = useGetTeamsQuery();
 
-const teams = data?.data ?? [];
+ const [show , setShow] = useState(false);
+    
 
-if (teamsLoading) return <p>Loading...</p>
+const { data, isLoading } = useGetTeamsQuery();
+
+const teams = data?.data?.data ?? [];
+
+
+
+
+if (isLoading) return <p>Loading...</p>
 
 
 return(
@@ -59,17 +75,17 @@ return(
 
                         
                         <td className="px-6 py-4">
-                      <span className="text-gray-900">test</span>
+                      <span className="text-gray-900">{team.project?.name ?? "Not in Project"}</span>
                         </td>
 
                         <td className="px-6 py-4">
-                      <span className="text-gray-900">5</span>
+                      <span className="text-gray-900">{team.members_count}</span>
                         </td>
 
                         
                         <td className="px-6 py-4">
                             
-                                <button className="bg-[#2563EB] w-22 h-8 text-white rounded-md cursor-pointer">Add</button>
+                                <button className="bg-[#2563EB] w-22 h-8 text-white rounded-md cursor-pointer" onClick={() => setShow(true)}>Add</button>
                             
                         </td>
 
@@ -85,6 +101,21 @@ return(
                 </tbody>
                 </table>
             </div>
+
+
+            {show && <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50"
+               onClick={() => setShow(false)}>
+                <div className="w-full max-w-md"
+                    onClick={(e) => e.stopPropagation()}>
+
+                <Activity mode={show ? "visible" : "hidden"}
+                       className="bg-white rounded-xl shadow-lg p-6">
+
+                    <AddMemberModal/>
+
+                </Activity>
+                </div>
+            </div>}
 
     </div>
 )

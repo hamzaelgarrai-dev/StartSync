@@ -8,13 +8,11 @@ import { Routes, Route , useLocation, Navigate } from "react-router-dom";
 import DashboardLayout from './components/layout/DashboardLayout'
 import ManagerDashboard from './pages/manager/ManagerDashboard'
 import MemberDashboard from './pages/member/MemberDashboard'
-import CreateProjectModal from './components/modals/CreateProjectModal'
-import CreatTeamModal from './components/modals/CreatTeamModal'
-import AddMemberModal from './components/modals/AddMemberModal'
 import RequireAuth from './features/auth/RequireAuth'
 import { Overview } from './pages/manager/Overview'
 import { Team } from './pages/manager/Team'
 import { Project } from './pages/manager/Project'
+import { Feedbacks } from './pages/member/Feedbacks'
 
 
 function App() {
@@ -26,62 +24,58 @@ function App() {
   location.pathname.startsWith("/member") ||
   location.pathname.startsWith("/client")
 
+
   
 
 
   return (
 
     <>
-       <div className='max-w-7xl mx-auto px-6'>
+           
+     
+      {!hideLayout && <Navbar />}
 
-        {!hideLayout && <Navbar/>}
 
         <Routes>
-        {/* Public routes */}
-        <Route path="/" element={<Home />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} />
+         
+          <Route path="/" element={<Home />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+
+         
+          <Route
+            path="/manager/dashboard"
+            element={
+              <RequireAuth>
+                <ManagerDashboard />
+              </RequireAuth>
+            }
+          >
+            <Route index element={<Navigate to="overview" replace />} />
+            <Route path="overview" element={<Overview />} />
+            <Route path="team" element={<Team />} />
+            <Route path="projects" element={<Project />} />
+          </Route>
+
+         
+          <Route
+            path="/member/dashboard"
+            element={
+              <RequireAuth>
+                <MemberDashboard />
+              </RequireAuth>
+            }
+          >
+            <Route index element={<Navigate to="feedbacks" replace />} />
+            <Route path="feedbacks" element={<Feedbacks/>}/>
+
+        </Route>
 
         </Routes>
-
-        </div>
-
-        <Routes>
-
-        {/* Protected routes */}
-        <Route
-        path="/manager/dashboard"
-        element={
-          <RequireAuth>
-            <ManagerDashboard />
-          </RequireAuth>
-        }
-      >
-        <Route index element={<Navigate to="overview" replace />} />
-        <Route path="overview" element={<Overview />} />
-        <Route path="team" element={<Team />} />
-        <Route path="projects" element={<Project />} />
-
       
-        
-      </Route>
 
-
-      <Route
-      path="/member/dashboard"
-      element={
-      <RequireAuth>
-        <MemberDashboard />
-      </RequireAuth>
-      }
-      />  
-          
-              
-          
-          </Routes>
-
-        {!hideLayout && <Footer/>}
-
+      {!hideLayout && <Footer />}
+    
         
 
         

@@ -2,6 +2,8 @@
 import DashboardLayout from '../../components/layout/DashboardLayout'
 import { Outlet, useLocation } from 'react-router-dom'
 import { ChartNoAxesGantt, Users, FolderKanban, HardDriveDownload, Plus } from "lucide-react"
+import CreatTeamModal from '../../components/modals/CreatTeamModal'
+import { Activity, useState } from 'react'
 
 export const managerMenuItems = [
   { path: '/manager/dashboard/overview', label: 'Overview', icon: <ChartNoAxesGantt /> },
@@ -10,6 +12,7 @@ export const managerMenuItems = [
 ]
 
 function OverviewHeader({ title }) {
+  
   return (
     <div className='flex justify-between items-center'>
       <p className='text-xl font-semibold uppercase'>{title}</p>
@@ -31,16 +34,43 @@ function OverviewHeader({ title }) {
 }
 
 function TeamHeader({ title }) {
+
+   const [show , setShow] = useState(false);
   return (
+    <>
+    
+    
     <div className='flex justify-between items-center'>
       <p className='text-xl font-semibold uppercase'>{title}</p>
 
-      <button className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 flex items-center space-x-2">
+      <button onClick={() => setShow(true)} className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 flex items-center space-x-2">
         <Plus />
         <span>Add a Team</span>
       </button>
     </div>
+
+    {show && <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50"
+                   onClick={() => setShow(false)}>
+
+                    <div className="w-full max-w-md"
+                    onClick={(e) => e.stopPropagation()}>
+
+                      <Activity
+                       mode={show ? "visible" : "hidden"}
+                       className="bg-white rounded-xl shadow-lg p-6">
+    
+                        <CreatTeamModal/>
+    
+                    </Activity>
+
+                    </div>
+                    
+                </div>}
+
+   </>
   )
+
+  
 }
 
 function ProjectsHeader({ title }) {

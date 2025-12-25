@@ -20,7 +20,7 @@ class FeedbackFactory extends Factory
     public function definition(): array
     {
         return [
-            'title' => fake()->sentence(5),
+            'title' => fake()->sentence(4),
             'description' => fake()->paragraph(),
             'status' => fake()->randomElement(['open', 'in_progress', 'done']),
             'priority' => fake()->randomElement(['low', 'medium', 'high']),

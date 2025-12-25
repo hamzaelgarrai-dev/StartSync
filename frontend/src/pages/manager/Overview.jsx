@@ -7,12 +7,10 @@ export  const Overview = () => {
 
 
 const { data, issuesLoading } = useGetIssuesQuery();
+
 const issues = data?.data ?? [];
   const { data: stats = {}, isLoading: statsLoading } = useGetStatsQuery()
-  const assignee =
-  issues.assigned_user?.name ??
-  issues.assigned_team?.name ??
-  'Not Signed'
+
 
   console.log('issues', issues)
 
@@ -99,6 +97,9 @@ const issues = data?.data ?? [];
                 
                 <tbody className="divide-y divide-gray-200">
                     {issues?.map(issue => (
+
+                
+
                     <tr key={issue.id} className="hover:bg-gray-50">
                     
                         <td className="px-6 py-4">
@@ -111,7 +112,7 @@ const issues = data?.data ?? [];
                         </td>
 
                         
-                        <td className="px-4 py-4">
+                        <td className="px-2 py-4">
                         {issue.status === 'in_progress' && (
                             <span className="px-2 py-1 rounded-full text-xs font-medium bg-blue-100 text-blue-700">
                             In Progress
@@ -152,18 +153,13 @@ const issues = data?.data ?? [];
                             <span className="text-gray-700">Low</span>
                             </div>
                         )}
-                        {issue.priority === 'urgent' && (
-                            <div className="flex items-center gap-2">
-                            <span className="font-bold text-red-800">↑</span>
-                            <span className="text-gray-700">Urgent</span>
-                            </div>
-                        )}
+
                         </td>
 
                         
                         <td className="px-6 py-4">
-                       
-                            <button className="text-gray-700 cursor-pointer">{assignee}</button>
+                                
+                            <span className="text-gray-700 cursor-pointer">{issue.assigned_user?.name ?? issue.assigned_team?.name ?? <button className='bg-blue-700'>Assigne</button>}</span>
                        
                         </td>
 
