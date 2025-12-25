@@ -1,65 +1,12 @@
-import { Activity } from 'react'
+import { useGetTeamsQuery } from "../../features/manager/teamApiSlice"
 
 export const Team = () =>{
 
- const issues = [
-    {
-      id: '142',
-      title: 'Fix navigation menu on mobile',
-      status: 'In Progress',
-      priority: 'High',
-      assignee: 'Sarah Chen',
-      dueDate: '2024-12-05'
-    },
-    {
-      id: '089',
-      title: 'Implement OAuth authentication',
-      status: 'Review',
-      priority: 'High',
-      assignee: 'Mike Johnson',
-      dueDate: '2024-12-03'
-    },
-    {
-      id: '234',
-      title: 'Update app icon for iOS',
-      status: 'Open',
-      priority: 'Medium',
-      assignee: 'Assign To',
-      dueDate: '2024-12-08'
-    },
-    {
-      id: '156',
-      title: 'Optimize image loading performance',
-      status: 'In Progress',
-      priority: 'High',
-      assignee: 'Tom Brown',
-      dueDate: '2024-12-04'
-    },
-    {
-      id: '078',
-      title: 'Design email campaign template',
-      status: 'Open',
-      priority: 'Low',
-      assignee: 'Assign To',
-      dueDate: '2024-12-10'
-    },
-    {
-      id: '091',
-      title: 'Add rate limiting to API endpoints',
-      status: 'Testing',
-      priority: 'Medium',
-      assignee: 'Mike Johnson',
-      dueDate: '2024-12-06'
-    },
-    {
-      id: '159',
-      title: 'Implement dark mode toggle',
-      status: 'In Progress',
-      priority: 'Medium',
-      assignee: 'Sarah Chen',
-      dueDate: '2024-12-07'
-    },
-  ];
+const { data, teamsLoading } = useGetTeamsQuery();
+
+const teams = data?.data ?? [];
+
+if (teamsLoading) return <p>Loading...</p>
 
 
 return(
@@ -98,21 +45,21 @@ return(
 
                 
                 <tbody className="divide-y divide-gray-200">
-                    {issues.map((issue) => (
-                    <tr key={issue.id} className="hover:bg-gray-50">
+                    {teams.map((team) => (
+                    <tr key={team.id} className="hover:bg-gray-50">
                     
                         <td className="px-6 py-4">
-                        <span className="text-blue-600 font-medium">{issue.id}</span>
+                        <span className="text-blue-600 font-medium">{team.id}</span>
                         </td>
 
                     
                         <td className="px-2 py-4">
-                        <span className="text-gray-900">{issue.title}</span>
+                        <span className="text-gray-900">{team.name}</span>
                         </td>
 
                         
                         <td className="px-6 py-4">
-                      <span className="text-gray-900">{issue.status}</span>
+                      <span className="text-gray-900">test</span>
                         </td>
 
                         <td className="px-6 py-4">

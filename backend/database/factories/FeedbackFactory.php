@@ -20,10 +20,10 @@ class FeedbackFactory extends Factory
     public function definition(): array
     {
         return [
-            'title' => fake()->sentence(),
+            'title' => fake()->sentence(5),
             'description' => fake()->paragraph(),
-            'status' => fake()->randomElement(['open', 'in_progress', 'done', 'closed']),
-            'priority' => fake()->randomElement(['low', 'medium', 'high', 'urgent']),
+            'status' => fake()->randomElement(['open', 'in_progress', 'done']),
+            'priority' => fake()->randomElement(['low', 'medium', 'high']),
             'project_id' => Project::factory(),
             'client_id' => User::factory()->client(),
             'assigned_to_user_id' => null,

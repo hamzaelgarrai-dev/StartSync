@@ -31,7 +31,7 @@ services:
       # CORS Middleware - ADD THESE LINES
       - "traefik.http.middlewares.laravel-cors.headers.accesscontrolallowmethods=GET,POST,PUT,DELETE,PATCH,OPTIONS"
       - "traefik.http.middlewares.laravel-cors.headers.accesscontrolalloworiginlist=http://frontend.localhost"
-      - "traefik.http.middlewares.laravel-cors.headers.accesscontrolallowheaders=Content-Type,Authorization,X-Requested-With,Accept"
+      - "traefik.http.middlewares.laravel-cors.headers.accesscontrolallowheaders=Content-Type,Authorization,Accept"
       - "traefik.http.middlewares.laravel-cors.headers.accesscontrolmaxage=100"
       - "traefik.http.middlewares.laravel-cors.headers.accesscontrolallowcredentials=true" 
       - "traefik.http.middlewares.laravel-cors.headers.addvaryheader=true"

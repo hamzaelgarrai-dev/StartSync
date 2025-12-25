@@ -28,33 +28,34 @@ class AuthController extends Controller
             ], 201);
     }
 
-    public function login(LoginRequest $request){
+    public function login(LoginRequest $request)
+    {
+        if (!Auth::attempt($request->only('email', 'password'))) {
+            return response()->json([
+                'message' => 'Invalid credentials'
+            ], 401);
+        }
 
-         if (!Auth::attempt($request->only('email', 'password'))) {
+        $user = Auth::user();
+        $token = $user->createToken('api-token')->plainTextToken;
+
         return response()->json([
-            'message' => 'Invalid credentials'
-        ], 401);
-    }
-
-    $user = $request->user();
-
-        $token = $user->createToken('auth_token')->plainTextToken;
-
-       return response()->json([
-            'message' => 'Login successful',
             'user' => $user,
             'access_token' => $token,
             'token_type' => 'Bearer',
-            ], 200);
-
+        ]);
     }
 
-    public function logout(Request $request){
+     public function me(Request $request)
+    {
+        return response()->json($request->user());
+    }
 
+    // Logout (revoke current token)
+    public function logout(Request $request)
+    {
         $request->user()->currentAccessToken()->delete();
-
         return response()->json(['message' => 'Logged out']);
-
     }
 
 

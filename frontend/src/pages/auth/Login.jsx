@@ -4,6 +4,7 @@ import { useForm } from "react-hook-form"
 import { useLoginMutation } from '../../features/auth/authApiSlice';
 import { useDispatch } from 'react-redux'
 import { setCredentials } from '../../features/auth/authSlice'
+import GoogleLogin from "./GoogleLogin";
 
 function Login() {
 
@@ -105,13 +106,18 @@ function Login() {
                     <button disabled={isSubmitting} type='submit'
                      className=' disabled:bg-gray-300 w-full h-12 bg-[#0059F3] rounded-4xl flex justify-center items-center text-white cursor-pointer'>Sign In</button>
                     <p>Don’t Have an account ? <span className='text-[#044FD2]'>Create an Account</span></p>
+
+                    
+                    
+                    
+                    
                 </div>
                 
 
 
                 
             </form>
-
+            <GoogleLogin/>
         </div>
         
     </div>

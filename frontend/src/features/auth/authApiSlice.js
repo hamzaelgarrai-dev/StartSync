@@ -1,4 +1,4 @@
-import { apiSlice } from "../../api/apiSlice";
+import { apiSlice } from '../../api/apiSlice';
 
 export const authApi = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
@@ -10,9 +10,24 @@ export const authApi = apiSlice.injectEndpoints({
       }),
     }),
     me: builder.query({
-      query: () => '/me',
+      query: (token) => ({
+        url: '/me',
+        method: 'GET',
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }),
+    }),
+    logout: builder.mutation({
+      query: (token) => ({
+        url: '/logout',
+        method: 'POST',
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }),
     }),
   }),
-})
+});
 
-export const { useLoginMutation, useMeQuery } = authApi
+export const { useLoginMutation, useMeQuery, useLogoutMutation } = authApi;

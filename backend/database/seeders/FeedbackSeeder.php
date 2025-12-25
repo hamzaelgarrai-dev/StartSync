@@ -26,9 +26,9 @@ class FeedbackSeeder extends Seeder
             
             for ($i = 0; $i < rand(5, 10); $i++) {
                 $feedback = Feedback::create([
-                    'title' => fake()->sentence(),
+                    'title' => fake()->sentence(5),
                     'description' => fake()->paragraph(3),
-                    'status' => fake()->randomElement(['open', 'in_progress', 'done', 'closed']),
+                    'status' => fake()->randomElement(['open', 'in_progress', 'done']),
                     'priority' => fake()->randomElement(['low', 'medium', 'high', 'urgent']),
                     'project_id' => $project->id,
                     'client_id' => $clients->random()->id,
