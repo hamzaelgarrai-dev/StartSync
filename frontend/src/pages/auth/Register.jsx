@@ -2,32 +2,40 @@
 import { useNavigate } from "react-router-dom"
 import api from "../../services/api"
 import { useForm } from "react-hook-form"
+import { useSignupMutation } from "../../features/auth/authApiSlice"
+import { useDispatch } from "react-redux"
+import { setCredentials } from "../../features/auth/authSlice"
 function Register() {
 
 
 
   const navigate = useNavigate()
+  const dispatch = useDispatch()
 
   const {
     register,
     handleSubmit,
     setError,
-    reset,
     getValues,
-    formState: { errors , isSubmitting},
+    formState: { errors},
   } = useForm()
 
+
+  const [signup, { isLoading }] = useSignupMutation()
 
   const onSubmit = async(data) =>{
 
     try{
-         await api.post("/register", data)
-            reset()
-            navigate('/login')
+
+        const result = await signup(data).unwrap()
+        console.log("Signup Result:", result);
+        dispatch(setCredentials(result))
+        console.log("Attempting to navigate...");
+        navigate('/manager/dashboard')
             
     }catch(error){
-      if (error.response?.status === 422) {
-      const serverErrors = error.response.data.errors
+      if (error.status === 422) {
+      const serverErrors = error.data.errors
 
       Object.entries(serverErrors).forEach(([field, messages]) => {
         setError(field, {
@@ -94,7 +102,7 @@ function Register() {
                 </div>
 
                 <div className='flex flex-col justify-center items-center space-y-3.5'>
-                    <button disabled={isSubmitting} type='submit' className='disabled:bg-gray-300 w-full h-12 bg-[#0059F3] rounded-4xl flex justify-center items-center text-white cursor-pointer'>Sign Up</button>
+                    <button disabled={isLoading} type='submit' className='disabled:bg-gray-300 w-full h-12 bg-[#0059F3] rounded-4xl flex justify-center items-center text-white cursor-pointer'>Sign Up</button>
                     <p>Aleardy  Have an account ? <span className=' text-[#044FD2]'>Sign In</span></p>
                 </div>
                 

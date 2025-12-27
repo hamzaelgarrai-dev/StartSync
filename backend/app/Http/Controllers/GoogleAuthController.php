@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 use Laravel\Socialite\Facades\Socialite;
 
 
@@ -13,43 +14,40 @@ class GoogleAuthController extends Controller
     
     public function redirect(){
 
-        return Socialite::driver("google")->stateless()->redirect();
+        return Socialite::driver("google")->stateless()->redirectUrl(env('GOOGLE_REDIRECT_URI'))->redirect();
     }
 
     public function callbackGoogle(){
         try {
-            $google_user = Socialite::driver("google")->stateless()->user();;
-            $user = User::where('google_id' , $google_user->getId())->first();
+        $googleUser = Socialite::driver('google')->stateless()->user();
 
-            if(!$user){
+        
+        $user = User::updateOrCreate(
+            ['email' => $googleUser->getEmail()], 
+            [
+                'name' => $googleUser->getName(),
+                'google_id' => $googleUser->getId(),
+                'password' => bcrypt(Str::random(16)),
+                'role' => "project_manager"
+            ]
+        );
 
-                $new_user = User::create([
-                    
-                    "name" => $google_user->getName(),
-                    "email" => $google_user->getEmail(),
-                    "google_id"=>$google_user->getId(),
-                    'role' => 'project_manager',
+        $token = $user->createToken('auth_token')->plainTextToken;
 
-
-                ]);
-
-            $token = $user->createToken('auth_token')->plainTextToken;
-
-            return response()->json([
+         return response()->json([
                 'user'         => $user,
                 'access_token' => $token,
                 'token_type'   => 'Bearer',
             ]);
 
-            }
-
-        } catch (\Throwable $th) {
-            return response()->json([
-                'message' => 'Google login failed',
-                'error'   => $th->getMessage()
-            ], 500);
-        }
+    } catch (\Exception $e) {
+        return response()->json([
+            'message' => 'Google login failed',
+            'error' => $e->getMessage()
+        ], 500);
+    }
     }
 
     
 }
+

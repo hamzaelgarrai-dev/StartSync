@@ -60,4 +60,10 @@ class User extends Authenticatable
         return $this->belongsTo(Team::class);
     }
 
+    public function managedFeedbacks()
+{
+    return $this->hasManyThrough( Feedback::class,  Project::class, 
+        'manager_id',  'project_id',  'id',         'id'          
+    );
+}
 }

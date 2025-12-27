@@ -9,25 +9,26 @@ export const authApi = apiSlice.injectEndpoints({
         body: data,
       }),
     }),
+    signup: builder.mutation({
+      query: (data) => ({
+        url: '/register',
+        method: 'POST',
+        body: data,
+      }),
+    }),
     me: builder.query({
-      query: (token) => ({
+      query: () => ({
         url: '/me',
         method: 'GET',
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
       }),
     }),
     logout: builder.mutation({
       query: (token) => ({
         url: '/logout',
         method: 'POST',
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
       }),
     }),
   }),
 });
 
-export const { useLoginMutation, useMeQuery, useLogoutMutation } = authApi;
+export const { useLoginMutation, useMeQuery, useLogoutMutation, useSignupMutation} = authApi;

@@ -3,7 +3,7 @@ import { selectCurrentToken } from '../features/auth/authSlice';
 
 
 const baseQuery = fetchBaseQuery({
-  baseUrl: 'http://api.localhost/api',
+  baseUrl: 'http://127.0.0.1:8000/api',
   prepareHeaders: (headers, { getState }) => {
     const token = selectCurrentToken(getState());
     if (token) {
@@ -20,7 +20,7 @@ const baseQueryWithErrorHandling = async (args, api, extraOptions) => {
   const result = await baseQuery(args, api, extraOptions);
 
   if (result?.error?.status === 401) {
-    // Clear user/token from Redux
+
     api.dispatch({ type: 'auth/logOut' });
   }
 

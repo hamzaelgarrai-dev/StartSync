@@ -19,6 +19,8 @@ const { data, isLoading } = useGetTeamsQuery();
 
 const teams = data?.data?.data ?? [];
 
+console.log(data)
+
 
 
 
@@ -27,7 +29,9 @@ if (isLoading) return <p>Loading...</p>
 
 return(
     
-    <div className="bg-white rounded-xl min-h-screen border border-gray-300 space-y-2.5 mx-auto p-6 ">
+    <div className="flex flex-col rounded-3xl border border-[#e0e7f5] p-2 bg-[#F4F8FC]">
+
+        <div className="rounded-2xl border border-[#e0e7f5] bg-white px-2 py-6  ">
 
         <p className="text-lg font-semibold text-gray-900">Recent Teams</p>
 
@@ -58,6 +62,8 @@ return(
                     
                     </tr>
                 </thead>
+
+                {teams?.length > 0 ?(
 
                 
                 <tbody className="divide-y divide-gray-200">
@@ -99,6 +105,14 @@ return(
                     </tr>
                     ))}
                 </tbody>
+
+                ):(
+                    <tr>
+                    <td colSpan="6" className="px-6 py-10 text-center">
+                      <p className="text-gray-500 font-medium">No Team found</p>
+                    </td>
+                  </tr>
+                )}
                 </table>
             </div>
 
@@ -118,6 +132,8 @@ return(
             </div>}
 
     </div>
+    </div>
+    
 )
 
 

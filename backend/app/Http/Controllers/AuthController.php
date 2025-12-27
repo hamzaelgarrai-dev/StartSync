@@ -23,8 +23,13 @@ class AuthController extends Controller
 
             UserRegistred::dispatch($user);
 
+            $token = $user->createToken('auth_token')->plainTextToken;
+
             return response()->json([
                 'message' => 'Registration successful',
+                'user' => $user,
+                'access_token' => $token,
+                'token_type' => 'Bearer',
             ], 201);
     }
 
@@ -37,13 +42,14 @@ class AuthController extends Controller
         }
 
         $user = Auth::user();
-        $token = $user->createToken('api-token')->plainTextToken;
+        $token = $user->createToken('auth_token')->plainTextToken;
 
         return response()->json([
+            'message' => 'login successful',
             'user' => $user,
             'access_token' => $token,
             'token_type' => 'Bearer',
-        ]);
+        ],200);
     }
 
      public function me(Request $request)

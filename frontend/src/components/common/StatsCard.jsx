@@ -33,4 +33,4 @@ const StatsCard = ({ icon, title, value, color = "blue" }) => {
   );
 };
 
-export default StatsCard;
+export default StatsCard

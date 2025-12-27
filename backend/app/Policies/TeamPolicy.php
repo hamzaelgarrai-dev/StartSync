@@ -2,6 +2,7 @@
 
 namespace App\Policies;
 
+use App\Models\Project;
 use App\Models\Team;
 use App\Models\User;
 use Illuminate\Auth\Access\Response;
@@ -21,15 +22,15 @@ class TeamPolicy
      */
     public function view(User $user, Team $team): bool
     {
-        //
+        return $user->id === $team->project->manager_id;
     }
 
     /**
      * Determine whether the user can create models.
      */
-    public function create(User $user): bool
+    public function create(User $user , Project $project): bool
     {
-        //
+        return $user->role === 'project_manager';
     }
 
     /**
@@ -37,7 +38,7 @@ class TeamPolicy
      */
     public function update(User $user, Team $team): bool
     {
-        //
+        return $user->id === $team->project->manager_id;
     }
 
     /**
@@ -45,7 +46,7 @@ class TeamPolicy
      */
     public function delete(User $user, Team $team): bool
     {
-        //
+        return $user->id === $team->project->manager_id;
     }
 
     /**

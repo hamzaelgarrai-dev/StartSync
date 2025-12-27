@@ -1,7 +1,9 @@
-import { Link, useLocation } from 'react-router-dom'
-import {LogOut, User} from "lucide-react"
-import { useSelector } from "react-redux"
+import { Link, useLocation , useNavigate} from 'react-router-dom'
+import {LogOut} from "lucide-react"
+import { useSelector  } from "react-redux"
 import { selectCurrentUser} from "../../features/auth/authSlice"
+import LogoutButton from '../common/LogoutButton';
+
 const DashboardLayout = ({
   children,
   menuItems = [],
@@ -85,7 +87,7 @@ const DashboardLayout = ({
                
           </div>
           <div className=' px-2'>
-            <button className='text-white cursor-pointer flex space-x-4'> <span><LogOut /></span> <span>Log out</span> </button>
+            <LogoutButton/>
           </div>
           
 

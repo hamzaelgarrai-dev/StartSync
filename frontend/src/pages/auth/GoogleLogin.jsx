@@ -1,6 +1,7 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
 import { setCredentials } from '../../features/auth/authSlice';
+import GoogleSvg from '../../assets/Svgs/GoogleSvg';
 
 function GoogleLogin() {
   const dispatch = useDispatch();
@@ -14,7 +15,7 @@ function GoogleLogin() {
       const top = (window.innerHeight - height) / 2;
 
       const popup = window.open(
-        'http://api.localhost/api/auth/google/redirect',
+        'http://localhost:8000/api/auth/google/redirect',
         'Google Login',
         `width=${width},height=${height},top=${top},left=${left}`
       );
@@ -57,8 +58,9 @@ function GoogleLogin() {
   };
 
   return (
-    <button className='cursor-pointer' onClick={handleGoogleLogin}>
-      Login with Google
+    <button type='button' className='cursor-pointer bg-white border border-gray-500 w-full h-12 rounded-4xl flex justify-center items-center space-x-4 ' onClick={handleGoogleLogin}>
+      <span><GoogleSvg/></span>
+      <span>Login with Google</span>
     </button>
   );
 }

@@ -1,13 +1,72 @@
 import{ListChecks, CircleCheck, Clock, Dot} from "lucide-react"
 import StatsCard from '../../components/common/StatsCard'
-import { MyTasksCard } from "../../components/common/MyTasksCard"
+// import { MyTasksCard } from "../../components/common/MyTasksCard"
+import { useState } from 'react'
+import { Column } from './kanban/Column'
+import { DndContext} from '@dnd-kit/core';
+
+
+const COLUMNS = [
+  { id: 'TODO', title: 'To Do' },
+  { id: 'IN_PROGRESS', title: 'In Progress' },
+  { id: 'DONE', title: 'Done' },
+];
+
+
+const INITIAL_TASKS = [
+  {
+    id: '1',
+    title: 'Research Project',
+    description: 'Gather requirements and create initial documentation',
+    status: 'TODO',
+  },
+  {
+    id: '2',
+    title: 'Design System',
+    description: 'Create component library and design tokens',
+    status: 'TODO',
+  },
+  {
+    id: '3',
+    title: 'API Integration',
+    description: 'Implement REST API endpoints',
+    status: 'IN_PROGRESS',
+  },
+  {
+    id: '4',
+    title: 'Testing',
+    description: 'Write unit tests for core functionality',
+    status: 'DONE',
+  },
+];
 
 export const Feedbacks = () =>{
+     const [tasks, setTasks] = useState(INITIAL_TASKS);
+
+
+     function handleDragEnd(event) {
+    const { active, over } = event;
+
+    if (!over) return;
+
+    const taskId = active.id 
+    const newStatus = over.id 
+
+    setTasks(() =>
+      tasks.map((task) =>
+        task.id === taskId
+          ? {
+              ...task,
+              status: newStatus,
+            }
+          : task,
+      ),
+    );
+  }
 
     return(
 
-        <div className="flex flex-col">
-
+        <div className="p-4">
             <div className="grid grid-cols-3 gap-8  mb-18 ">
 
                 <StatsCard
@@ -34,51 +93,23 @@ export const Feedbacks = () =>{
                 />
 
             </div>
+      <div className="flex gap-8">
+        
+        <DndContext onDragEnd={handleDragEnd}>
+          {COLUMNS.map((column) => {
+            return (
+              <Column
+                key={column.id}
+                column={column}
+                tasks={tasks.filter((task) => task.status === column.id)}
+              />
+            );
+          })}
+        </DndContext>
+      </div>
+    </div>
 
-            <div className="flex justify-between items-start ">
-
-                <div className="min-h-screen w-90 bg-[#F3F4F6] rounded-xl flex flex-col p-4 ">
-
-                    <div className="flex justify-start items-center">
-                        <span><Dot size={48} color="#F97316" /></span>
-                        <p className="font-medium"> Open</p>
-
-                        
-                    </div>
-                    <div>
-                        
-                    </div>
-
-                    
-
-                    <MyTasksCard
-                    priority="high"
-                    title="Active Issues"
-                    description="testtttt"
-                    color="blue"/>
-                   
-                    
-
-                </div>
-
-
-                <div className="min-h-screen w-90 bg-[#F3F4F6] rounded-xl flex flex-col p-4">
-                    <div className="flex justify-start items-center">
-                        <span><Dot size={48} color="#3B82F6" /></span>
-                        <p className="font-medium"> In Progress</p>
-                    </div>
-                </div>
-
-                <div className="min-h-screen w-90 bg-[#F3F4F6] rounded-xl flex flex-col p-4">
-                    <div className="flex justify-start items-center">
-                        <span><Dot size={48} color="#22C55E" /></span>
-                        <p className="font-medium">Done</p>
-                    </div>
-                </div>
-
-            </div>
-
-        </div>
+       
     )
 
 
