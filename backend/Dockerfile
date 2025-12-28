@@ -32,7 +32,7 @@ RUN chown -R www-data:www-data storage bootstrap/cache
 
 # Optimize Laravel for production
 RUN composer install --no-dev --optimize-autoloader
-RUN php artisan config:cache && php artisan route:cache && php artisan view:cache
+
 
 # Expose PHP-FPM port
 EXPOSE 9000

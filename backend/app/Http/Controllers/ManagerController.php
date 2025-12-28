@@ -138,10 +138,10 @@ class ManagerController extends Controller
         'message' => 'Team created successfully',
         'data' => $team
     ], 201);
-   }
+    }
 
    public function projects(Request $request)
-{
+   {
 
     $projects = $request->user()->project()->get();
 
@@ -149,10 +149,10 @@ class ManagerController extends Controller
         'success' => true,
         'data' => $projects
     ]);
-}
+   }
 
    public function storeProject(Request $request)
-{
+   {
     $validated = $request->validate([
         'name' => 'required|string|max:255',
         'description' => 'nullable|string',
@@ -166,7 +166,7 @@ class ManagerController extends Controller
     ]);
 
     return response()->json(['success' => true, 'data' => $project], 201);
-}
+   }
 
 
 
