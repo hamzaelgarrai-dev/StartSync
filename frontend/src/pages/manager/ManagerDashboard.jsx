@@ -78,11 +78,6 @@ function ProjectsHeader({ title }) {
     <div className='flex justify-between items-center'>
       <p className='text-xl font-semibold uppercase'>{title}</p>
 
-      <input
-        placeholder='Search...'
-        type="text"
-        className='border border-gray-400 rounded-md h-8 px-4'
-      />
     </div>
   )
 }

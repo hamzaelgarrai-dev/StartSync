@@ -13,6 +13,7 @@ import { Overview } from './pages/manager/Overview'
 import { Team } from './pages/manager/Team'
 import { Project } from './pages/manager/Project'
 import { Feedbacks } from './pages/member/Feedbacks'
+import { Toaster } from 'react-hot-toast'
 
 
 function App() {
@@ -35,7 +36,7 @@ function App() {
      
       {!hideLayout && <Navbar />}
 
-
+        <Toaster position="top-right" reverseOrder={false} />
         <Routes>
          
           <Route path="/" element={<Home />} />

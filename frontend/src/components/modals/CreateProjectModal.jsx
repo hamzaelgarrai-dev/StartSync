@@ -1,15 +1,35 @@
 import React from 'react'
 import { useForm } from "react-hook-form"
+import { useCreateProjectMutation } from '../../features/manager/projectApiSlice';
+import toast from 'react-hot-toast'
 
-function CreateProjectModal({ onSubmit }) {
+
+function CreateProjectModal({ onClose }) {
+
+  const [createProject, { isLoading }] = useCreateProjectMutation()
 
   const {
     register,
     handleSubmit,
-    formState: { errors, isSubmitting },
+    formState: { errors },
   } = useForm()
 
-  
+  const onSubmit = async (data) => {
+
+    const loadingToast = toast.loading('Creating project...');
+    try {
+      
+      await createProject(data).unwrap()
+      toast.success('Project created successfully!', { id: loadingToast })
+      if (onClose) onClose()
+      console.log("Project created!")
+    } catch (error) {
+      const msg = error.data?.message || "Failed to create project";
+      console.error(error);
+      toast.error(msg, { id: loadingToast })
+    }
+    
+  }
 
   return (
     <form
@@ -61,11 +81,11 @@ function CreateProjectModal({ onSubmit }) {
      
       <button
         type="submit"
-        disabled={isSubmitting}
+        disabled={isLoading}
         className="h-12 w-full rounded-full bg-[#0059F3] text-white font-medium
                    hover:bg-[#0047c7] transition disabled:bg-gray-300"
       >
-        {isSubmitting ? "Creating..." : "Create Project"}
+        Create Project
       </button>
     </form>
   )

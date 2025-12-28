@@ -13,7 +13,7 @@ class Team extends Model
     protected $fillable = ["name","project_id"];
 
     public function members(){
-        return $this->hasMany(User::class);
+        return $this->hasMany(User::class, 'team_id');
     }
 
     public function project(){
@@ -21,7 +21,7 @@ class Team extends Model
     }
 
     public function assignedFeedback(){
-        return $this->hasMany(FeedbackFactory::class);
+        return $this->hasMany(Feedback::class, 'assigned_to_team_id');
     }
 
     public function manager(){

@@ -9,7 +9,7 @@ class Feedback extends Model
 {
     use HasFactory;
 
-    protected $fillable = ["title","description","status","priority","project_id","client_id", "AssignedToUser_id" , "AssignedToTeam_id"];
+    protected $fillable = ["title","description","status","priority","project_id","client_id", "assigned_to_user_id" , "assigned_to_team_id"];
 
     public function screenshot(){
 

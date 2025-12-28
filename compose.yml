@@ -10,6 +10,10 @@ services:
       - ./backend:/var/www/html
     networks:
       - web
+    command: >
+      sh -c "php artisan config:clear && 
+             php artisan cache:clear && 
+             php-fpm"
 
   # Nginx for Laravel
   laravel-nginx:
@@ -32,6 +36,7 @@ services:
     working_dir: /app
     volumes:
       - ./frontend:/app
+      - /app/node_modules
     command: sh -c "npm install && npm run dev -- --host 0.0.0.0"
     ports:
       - "5173:5173" # You will access frontend via http://localhost:5173
@@ -47,6 +52,7 @@ services:
       MYSQL_DATABASE: StartSync_DB
     volumes:
       - mysql_data:/var/lib/mysql # Changed to separate volume
+    command: --skip-name-resolve
     networks:
       - web
 

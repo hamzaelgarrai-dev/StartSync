@@ -1,13 +1,37 @@
 import React from 'react'
 import { useForm } from "react-hook-form"
+import { useGetProjectsQuery } from '../../features/manager/projectApiSlice'
+import toast from 'react-hot-toast';
+import { useCreateTeamMutation } from '../../features/manager/teamApiSlice';
 
-function CreatTeamModal({ onSubmit }) {
+function CreatTeamModal({ onClose }) {
+
+  const { data: projectsData, isLoading: projectsLoading } = useGetProjectsQuery()
+  const [createTeam , {isLoading : isCreatingTeam} ] = useCreateTeamMutation()
 
     const {
         register,
         handleSubmit,
-        formState: { errors, isSubmitting },
+        formState: { errors },
       } = useForm()
+
+      const onSubmit = async (data) => {
+
+    const loadingToast = toast.loading('Creating Team...')
+    try {
+      
+      await createTeam(data).unwrap()
+      toast.success('Team created successfully!', { id: loadingToast })
+      if (onClose) onClose()
+      console.log("Team created!")
+    } catch (error) {
+      const msg = error.data?.message || "Failed to create Team"
+      console.error(error)
+      toast.error(msg, { id: loadingToast })
+    }
+    
+  }
+
 
   return (
     <form
@@ -49,11 +73,13 @@ function CreatTeamModal({ onSubmit }) {
                focus:outline-none focus:ring-2 focus:ring-blue-300"
   >
     <option  value="" disabled>
-      Select project type
+      {projectsLoading ? "Loading projects..." : "Select a project"}
     </option>
-    <option value="website">Website</option>
-    <option value="web_app">Web Application</option>
-    <option value="mobile_app">Mobile Application</option>
+    {projectsData?.map((project) => (
+            <option key={project.id} value={project.id}>
+              {project.name}
+            </option>
+    ))}
   </select>
 
   {errors.project_id && (
@@ -66,11 +92,11 @@ function CreatTeamModal({ onSubmit }) {
      
       <button
         type="submit"
-        disabled={isSubmitting}
+        disabled={isCreatingTeam}
         className="h-12 w-full rounded-full bg-[#0059F3] text-white font-medium
                    hover:bg-[#0047c7] transition disabled:bg-gray-300"
       >
-        {isSubmitting ? "Creating..." : "Create Project"}
+        Create Team
       </button>
     </form>
   )

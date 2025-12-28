@@ -1,16 +1,34 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
+import { apiSlice } from '../../api/apiSlice'
 
-export const teamApi = createApi({
-  reducerPath: 'teamApi',
-  baseQuery: fetchBaseQuery({ baseUrl: 'http://127.0.0.1:8000/api' }),
+export const teamApi = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
     getTeams: builder.query({
-      query: () => '/teams', 
-      refetchOnMountOrArgChange: true,
-      keepUnusedDataFor: 300
+      query: () => '/teams',
+      transformResponse: (response) => response.data.data, 
+      providesTags: ['Teams'], 
+    }),
+    createTeam: builder.mutation({
+      query: (newTeam) => ({
+        url: '/teams',
+        method: 'POST',
+        body: newTeam,
+       
+      }),
+     
+      invalidatesTags: ['Teams'], 
+    }),
+    sendInvite: builder.mutation({
+      query: ({ teamId, email }) => ({
+        url: `/teams/${teamId}/invite`,
+        method: 'POST',
+        body: { email },
+        
+      }),
       
+      invalidatesTags: ['Teams'], 
     }),
   }),
 })
 
-export const  { useGetTeamsQuery }  = teamApi
+export const  { useGetTeamsQuery, useCreateTeamMutation, useSendInviteMutation }  = teamApi

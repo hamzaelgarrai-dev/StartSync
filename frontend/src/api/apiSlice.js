@@ -30,5 +30,6 @@ const baseQueryWithErrorHandling = async (args, api, extraOptions) => {
 export const apiSlice = createApi({
   reducerPath: 'api',
   baseQuery: baseQueryWithErrorHandling,
+  tagTypes: ['Teams', 'Projects', 'Feedback', 'FeedbackStats',],
   endpoints: (builder) => ({}), 
 });

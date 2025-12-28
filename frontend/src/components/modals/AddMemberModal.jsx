@@ -1,13 +1,31 @@
 import React from 'react'
 import { useForm } from "react-hook-form"
+import toast from 'react-hot-toast';
+import { useSendInviteMutation } from '../../features/manager/teamApiSlice';
 
-function AddMemberModal({ onSubmit }) {
+function AddMemberModal({teamId}) {
+  const [sendInvite, { isLoading }] = useSendInviteMutation()
 
     const {
-            register,
-            handleSubmit,
-            formState: { errors, isSubmitting },
-          } = useForm()
+       register,
+       handleSubmit,
+       reset,
+       formState: { errors },
+    } = useForm()
+
+  const onSubmit = async (data) => {
+    const loadingToast = toast.loading('Sending Invite...');
+        try {
+            
+            await sendInvite({ teamId, email: data.email }).unwrap();
+            toast.success('Invite Sent successfully!', { id: loadingToast })
+            reset();      
+        } catch (error) {
+            console.error(error);
+            const msg = error.data?.message || "Failed to send invite"
+            toast.error(msg, { id: loadingToast })
+        }
+    };
 
   return (
     <form
@@ -27,15 +45,16 @@ function AddMemberModal({ onSubmit }) {
       
       <div className="flex flex-col gap-1">
         <input
-          type="text"
-          {...register("name", { required: "Project name is required" })}
-          placeholder="Member Email"
-          className="h-12 rounded-full bg-[#F4F8FC] border border-[#D7D7D7] px-4
-                     focus:outline-none focus:ring-2 focus:ring-blue-300"
-        />
-        {errors.name && (
+                    type="email"
+                    {...register("email", { 
+                        required: "Email is required",})}
+                    placeholder="Enter Member"
+                    className="h-12 rounded-full bg-[#F4F8FC] border border-[#D7D7D7] px-4
+                    focus:outline-none focus:ring-2 focus:ring-blue-300"
+                />
+        {errors.email && (
           <span className="text-xs text-red-500">
-            {errors.name.message}
+            {errors.email.message}
           </span>
         )}
       </div>
@@ -44,11 +63,11 @@ function AddMemberModal({ onSubmit }) {
      
       <button
         type="submit"
-        disabled={isSubmitting}
+        disabled={isLoading}
         className="h-12 w-full rounded-full bg-[#0059F3] text-white font-medium
                    hover:bg-[#0047c7] transition disabled:bg-gray-300 cursor-pointer"
       >
-        {isSubmitting ? "Submiting..." : "Submit"}
+        Submit
       </button>
 
     </form>

@@ -27,12 +27,24 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::post('/register' , [AuthController::class , 'register']);
 Route::post('/login', [AuthController::class, 'login']);
+//newsletter
+Route::post('/newsletter/subscribe', [NewsLetterController::class, 'subscribe']);
+
 
 Route::middleware('auth:sanctum')->group(function () {
     Route::get('/me', [AuthController::class, 'me']);
     Route::post('/logout', [AuthController::class, 'logout']);
 
-    
+    Route::get('/issues' , [ManagerController::class , 'feedbacks']);
+    Route::get('/issues/stats' , [ManagerController::class , 'stats']);
+    Route::get("/teams" , [ManagerController::class , 'teams']);
+    Route::post('/teams', [ManagerController::class, 'storeTeam']);
+
+    Route::get('/projects', [ManagerController::class, 'projects']);
+    Route::post('/projects', [ManagerController::class, 'storeProject']);
+
+    Route::post('/teams/{team}/invite', [ManagerController::class, 'invite']);
+    Route::get('/invitation/accept/{team}/{email}', [ManagerController::class, 'accept'])->name('team.accept');;
 });
 
 Route::prefix('auth')->group(function () {
@@ -41,12 +53,8 @@ Route::prefix('auth')->group(function () {
 });
 
 
-Route::get('/issues' , [ManagerController::class , 'index']);
-Route::get('/issues/stats' , [ManagerController::class , 'stats']);
-Route::get("/teams" , [ManagerController::class , 'teams']);
 
 
 
 
-//newsletter
-Route::post('/newsletter/subscribe', [NewsLetterController::class, 'subscribe']);
+

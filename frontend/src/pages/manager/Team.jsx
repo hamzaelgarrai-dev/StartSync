@@ -12,14 +12,19 @@ import { Activity , useState } from "react";
 export const Team = () =>{
 
 
- const [show , setShow] = useState(false);
+ 
     
 
-const { data, isLoading } = useGetTeamsQuery();
+const { data : teams, isLoading } = useGetTeamsQuery()
+const [show , setShow] = useState(false)
+const [selectedTeamId, setSelectedTeamId] = useState(null)
+ const handleOpenModal = (id) => {
+        setSelectedTeamId(id); 
+        setShow(true);
+};
 
-const teams = data?.data?.data ?? [];
 
-console.log(data)
+
 
 
 
@@ -91,7 +96,7 @@ return(
                         
                         <td className="px-6 py-4">
                             
-                                <button className="bg-[#2563EB] w-22 h-8 text-white rounded-md cursor-pointer" onClick={() => setShow(true)}>Add</button>
+                                <button className="bg-[#2563EB] w-22 h-8 text-white rounded-md cursor-pointer" onClick={() => handleOpenModal(team.id)}>Add</button>
                             
                         </td>
 
@@ -107,11 +112,15 @@ return(
                 </tbody>
 
                 ):(
-                    <tr>
-                    <td colSpan="6" className="px-6 py-10 text-center">
-                      <p className="text-gray-500 font-medium">No Team found</p>
-                    </td>
-                  </tr>
+                    <tbody>
+
+                      <tr>
+                        <td colSpan="6" className="px-6 py-10 text-center">
+                           <p className="text-gray-500 font-medium">No Team found</p>
+                        </td>
+                       </tr>
+                    </tbody>
+                
                 )}
                 </table>
             </div>
@@ -125,7 +134,7 @@ return(
                 <Activity mode={show ? "visible" : "hidden"}
                        className="bg-white rounded-xl shadow-lg p-6">
 
-                    <AddMemberModal/>
+                    <AddMemberModal teamId={selectedTeamId}/>
 
                 </Activity>
                 </div>

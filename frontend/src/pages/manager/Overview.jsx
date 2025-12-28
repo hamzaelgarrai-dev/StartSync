@@ -6,14 +6,16 @@ import { useGetIssuesQuery, useGetStatsQuery } from '../../features/manager/issu
 export const Overview = () => {
 
 
-    const { data: issues, issuesLoading } = useGetIssuesQuery();
+    const { data : issues, issuesLoading } = useGetIssuesQuery();
 
 
+   
 
     const { data: stats = {}, isLoading: statsLoading } = useGetStatsQuery()
 
 
     console.log('issues', issues)
+    
     const displayPercentage = stats?.work_percentage ?? 0;
 
 
@@ -94,7 +96,7 @@ export const Overview = () => {
                                 </tr>
                             </thead>
 
-                            {issues?.length > 0 ? (
+                            {issues?.length> 0 ? (
 
                                 <tbody className="divide-y divide-gray-200">
                                     {issues?.map(issue => (
@@ -180,11 +182,14 @@ export const Overview = () => {
                                         </tr>
                                     ))}
                                 </tbody>
-                            ) : (<tr>
+                            ) : (
+                            <tbody>
+                                <tr>
                                 <td colSpan="5" className="px-6 py-10 text-center">
                                     <p className="text-gray-500 font-medium">No feedback found</p>
                                 </td>
-                            </tr>)}
+                            </tr>
+                            </tbody>)}
 
                         </table>
                     </div>

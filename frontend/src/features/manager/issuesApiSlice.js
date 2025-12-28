@@ -1,21 +1,34 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
+import { apiSlice } from '../../api/apiSlice'
 
-export const issuesApi = createApi({
-  reducerPath: 'issuesApi',
-  baseQuery: fetchBaseQuery({ baseUrl: 'http://127.0.0.1:8000/api' }),
+export const issuesApi = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
     getIssues: builder.query({
-      query: () => '/issues', 
-      transformResponse: (response) => response.data.data,
-      refetchOnMountOrArgChange: true,
-      keepUnusedDataFor: 300
+      query: () => "/issues",
+    
+      transformResponse: (response) => response.data.data, 
+      
+      providesTags: ['Feedback'],
+      keepUnusedDataFor: 300,
     }),
+
     getStats: builder.query({
-      query: () => '/issues/stats', 
-      refetchOnMountOrArgChange: true,
-      keepUnusedDataFor: 300
+      query: () => '/issues/stats',
+      providesTags: ['FeedbackStats'],
+      keepUnusedDataFor: 300,
+    }),
+
+    
+    assignIssue: builder.mutation({
+      query: ({ issueId, ...payload }) => ({
+        url: `/issues/${issueId}/assign`,
+        method: 'POST',
+        body: payload,
+      }),
+      
+      invalidatesTags: ['Feedback', 'FeedbackStats'],
     }),
   }),
 })
 
-export const { useGetIssuesQuery, useGetStatsQuery } = issuesApi
+export const { useGetIssuesQuery, useGetStatsQuery , useAssignIssueMutation} = issuesApi
