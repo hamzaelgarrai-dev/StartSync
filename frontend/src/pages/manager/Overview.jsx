@@ -2,6 +2,7 @@ import React from 'react'
 import { ListChecks, CircleCheck, Clock, ChartLine } from "lucide-react"
 import StatsCard from '../../components/common/StatsCard'
 import { useGetIssuesQuery, useGetStatsQuery } from '../../features/manager/issuesApiSlice'
+import { LoadingIndicator } from '../../components/application/loading-indicator/loading-indicator'
 
 export const Overview = () => {
 
@@ -19,7 +20,7 @@ export const Overview = () => {
     const displayPercentage = stats?.work_percentage ?? 0;
 
 
-    if (issuesLoading || statsLoading) return <p>Loading...</p>
+    if (issuesLoading || statsLoading) return <div className='flex justify-center items-center w-full h-screen'><LoadingIndicator type="dot-circle" size="md"  label="Loading..."  /></div> 
 
 
 

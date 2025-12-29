@@ -3,6 +3,7 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\GoogleAuthController;
 use App\Http\Controllers\ManagerController;
+use App\Http\Controllers\MemberController;
 use App\Http\Controllers\NewsLetterController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -45,6 +46,10 @@ Route::middleware('auth:sanctum')->group(function () {
 
     Route::post('/teams/{team}/invite', [ManagerController::class, 'invite']);
     Route::get('/invitation/accept/{team}/{email}', [ManagerController::class, 'accept'])->name('team.accept');;
+
+
+    Route::get('/assigned-feedbacks', [MemberController::class, 'loadAssignedFeedback']);
+    Route::patch('/issues/{feedback}/status', [MemberController::class, 'updateStatus']);
 });
 
 Route::prefix('auth')->group(function () {

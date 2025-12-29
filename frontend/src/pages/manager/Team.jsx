@@ -1,3 +1,4 @@
+import { LoadingIndicator } from "../../components/application/loading-indicator/loading-indicator";
 import AddMemberModal from "../../components/modals/AddMemberModal";
 import { useGetTeamsQuery } from "../../features/manager/teamApiSlice"
 import { Activity , useState } from "react";
@@ -29,7 +30,7 @@ const [selectedTeamId, setSelectedTeamId] = useState(null)
 
 
 
-if (isLoading) return <p>Loading...</p>
+if (isLoading) return <div className='flex justify-center items-center w-full h-screen'><LoadingIndicator type="dot-circle" size="md"  label="Loading..."  /></div>
 
 
 return(

@@ -7,17 +7,39 @@ use Illuminate\Http\Request;
 
 class MemberController extends Controller
 {
-    public function updateStatus(Request $request, Feedback $feedback)
-{
-    
-    $this->authorize('updateStatus', $feedback);
 
+    public function loadAssignedFeedback(Request $request)
+   {
+
+    
+      $feedbacks = $request->user()
+        ->assignedFeedback() 
+        ->with(['project', 'assignedUser']) 
+        ->latest()
+        ->get();
+
+    return response()->json($feedbacks);
+   }
+
+
+    public function updateStatus(Request $request, Feedback $feedback)
+    {
     $request->validate([
-        'status' => 'required|in:in_progress,done'
+        'status' => 'required|in:open,in_progress,done',
     ]);
 
-    $feedback->update(['status' => $request->status]);
+    if ($feedback->assigned_to_user_id !== auth()->id()) {
+        return response()->json(['message' => 'Unauthorized'], 403);
+    }
 
-    return response()->json(['success' => true, 'message' => 'Status updated!']);
-}
+    $feedback->update([
+        'status' => $request->status
+    ]);
+
+    return response()->json([
+        'message' => 'Status updated successfully',
+        'feedback' => $feedback
+    ]);
+   }
+
 }

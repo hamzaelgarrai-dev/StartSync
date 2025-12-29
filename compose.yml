@@ -47,6 +47,8 @@ services:
   mysql:
     image: mysql:8
     container_name: mysql
+    ports:
+      - '${FORWARD_DB_PORT:-3306}:3306'
     environment:
       MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
       MYSQL_DATABASE: StartSync_DB

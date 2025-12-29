@@ -14,6 +14,7 @@ import { Team } from './pages/manager/Team'
 import { Project } from './pages/manager/Project'
 import { Feedbacks } from './pages/member/Feedbacks'
 import { Toaster } from 'react-hot-toast'
+import FeedbackForm from './pages/client/FeedbackForm'
 
 
 function App() {
@@ -23,7 +24,8 @@ function App() {
   const hideLayout =
   location.pathname.startsWith("/manager") ||
   location.pathname.startsWith("/member") ||
-  location.pathname.startsWith("/client")
+  location.pathname.startsWith("/client")||
+  location.pathname.startsWith("/submit-feedback")
 
 
   
@@ -37,8 +39,10 @@ function App() {
       {!hideLayout && <Navbar />}
 
         <Toaster position="top-right" reverseOrder={false} />
+       
         <Routes>
-         
+          <Route path="/submit-feedback/:id" element={<FeedbackForm />} />
+
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />

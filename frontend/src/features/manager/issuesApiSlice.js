@@ -1,4 +1,3 @@
-import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 import { apiSlice } from '../../api/apiSlice'
 
 export const issuesApi = apiSlice.injectEndpoints({
@@ -6,29 +5,48 @@ export const issuesApi = apiSlice.injectEndpoints({
     getIssues: builder.query({
       query: () => "/issues",
     
-      transformResponse: (response) => response.data.data, 
-      
+      transformResponse: (response) => response.data.data,   
       providesTags: ['Feedback'],
-      keepUnusedDataFor: 300,
+      keepUnusedDataFor: 500,
     }),
 
     getStats: builder.query({
       query: () => '/issues/stats',
       providesTags: ['FeedbackStats'],
-      keepUnusedDataFor: 300,
+      keepUnusedDataFor: 500,
     }),
 
     
-    assignIssue: builder.mutation({
-      query: ({ issueId, ...payload }) => ({
-        url: `/issues/${issueId}/assign`,
-        method: 'POST',
-        body: payload,
-      }),
+    // assignIssue: builder.mutation({
+    //   query: ({ issueId, ...payload }) => ({
+    //     url: `/issues/${issueId}/assign`,
+    //     method: 'POST',
+    //     body: payload,
+    //   }),
       
-      invalidatesTags: ['Feedback', 'FeedbackStats'],
+    //   invalidatesTags: ['Feedback', 'FeedbackStats'],
+    // }),
+
+    updateIssueStatus: builder.mutation({
+      query: ({ id, status }) => ({
+        url: `/issues/${id}/status`,
+        method: 'POST', 
+    body: { 
+      status,
+      _method: 'PATCH' 
+    },
+      }),
+    
+      invalidatesTags: ['Feedback'], 
+    }),
+
+    getAssignedFeedbacks: builder.query({
+      query: () => "/assigned-feedbacks",
+      transformResponse: (response) => response.data || response, 
+      providesTags: ['Feedback'],
+      keepUnusedDataFor: 500,
     }),
   }),
 })
 
-export const { useGetIssuesQuery, useGetStatsQuery , useAssignIssueMutation} = issuesApi
+export const { useGetIssuesQuery, useGetStatsQuery , useGetAssignedFeedbacksQuery, useGetMemberIssuesQuery , useUpdateIssueStatusMutation} = issuesApi

@@ -7,7 +7,7 @@ export const projectApi = apiSlice.injectEndpoints({
             query:()=> "/projects",
             transformResponse: (response) => response.data,
             providesTags: ['Projects'],
-            keepUnusedDataFor: 300,
+            keepUnusedDataFor: 500,
         }),
 
         createProject: builder.mutation({

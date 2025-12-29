@@ -5,6 +5,7 @@ import { useLoginMutation } from '../../features/auth/authApiSlice';
 import { useDispatch } from 'react-redux'
 import { setCredentials } from '../../features/auth/authSlice'
 import GoogleLogin from "./GoogleLogin";
+import { LoadingIndicator } from "../../components/application/loading-indicator/loading-indicator";
 
 function Login() {
 
@@ -80,7 +81,7 @@ function Login() {
 
       {isLoading && (
         <div className="absolute inset-0 bg-white/70 flex items-center justify-center z-50">
-          <p className="text-lg font-medium">Signing you in...</p>
+          <div className='flex justify-center items-center w-full h-screen'><LoadingIndicator type="dot-circle" size="md"  label="Signing In..."  /></div> 
         </div>
       )}
 

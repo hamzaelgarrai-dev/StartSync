@@ -1,6 +1,5 @@
 
 import { useNavigate } from "react-router-dom"
-import api from "../../services/api"
 import { useForm } from "react-hook-form"
 import { useSignupMutation } from "../../features/auth/authApiSlice"
 import { useDispatch } from "react-redux"

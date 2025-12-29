@@ -7,6 +7,7 @@ export const teamApi = apiSlice.injectEndpoints({
       query: () => '/teams',
       transformResponse: (response) => response.data.data, 
       providesTags: ['Teams'], 
+      keepUnusedDataFor: 500,
     }),
     createTeam: builder.mutation({
       query: (newTeam) => ({

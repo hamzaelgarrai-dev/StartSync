@@ -1,14 +1,23 @@
 import{FolderPlus} from "lucide-react"
 import { Activity, useState } from "react"
 import CreateProjectModal from "../../components/modals/CreateProjectModal"
+import { useGetProjectsQuery } from "../../features/manager/projectApiSlice"
+import { LoadingIndicator } from "../../components/application/loading-indicator/loading-indicator"
+import ShareLinkCard from "../../components/common/ShareLinkCard"
 
 
 export const Project = () => {
 
      const [show , setShow] = useState(false)
 
+     const { data: projectsData, isLoading: projectsLoading } = useGetProjectsQuery()
 
 
+     
+
+
+
+     if (projectsLoading) return <div className='flex justify-center items-center w-full h-screen'><LoadingIndicator type="dot-circle" size="md"  label="Loading..."  /></div> 
     return(
 
         <>
@@ -22,6 +31,12 @@ export const Project = () => {
                 <p className="text-lg text-[#7C7C7C]">New Project</p>
 
             </button>
+
+            {projectsData?.map((project)=> (
+
+                <ShareLinkCard key={project.id} projectId={project.id} projectName={project.name} />
+                
+            ))}
 
 
 
