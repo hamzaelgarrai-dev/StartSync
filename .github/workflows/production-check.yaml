@@ -34,7 +34,7 @@ jobs:
       # Install dependencies
       - name: Install Composer dependencies
         run: |
-          docker compose exec -T laravel composer install --no-dev --optimize-autoloader
+          docker compose exec -T laravel composer install
 
       # Setup environment - single command
       - name: Setup Laravel
@@ -44,6 +44,10 @@ jobs:
             php artisan key:generate --force &&
             php artisan migrate --force
           '
+
+      # --- Laravel PHPUnit Tests ---
+      - name: Run Laravel Tests (PHPUnit)
+        run: docker compose exec -T laravel php artisan test
 
       # Laravel checks
       - name: Test Laravel
