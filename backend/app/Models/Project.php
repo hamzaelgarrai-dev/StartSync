@@ -12,7 +12,7 @@ class Project extends Model
     protected $fillable = ["name","description","manager_id"];
 
     public function manager(){
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class , 'manager_id');
     }
 
     public function feedback(){

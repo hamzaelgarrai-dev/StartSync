@@ -21,7 +21,9 @@ class FeedbackPolicy
      */
     public function view(User $user, Feedback $feedback): bool
     {
-        //
+        return $user->id === $feedback->project->manager_id || 
+           $user->id === $feedback->clientId || 
+           $user->id === $feedback->assigned_to_user_id;
     }
 
     /**
@@ -29,7 +31,7 @@ class FeedbackPolicy
      */
     public function create(User $user): bool
     {
-        //
+        return $user->role === 'client';
     }
 
     /**
@@ -37,7 +39,8 @@ class FeedbackPolicy
      */
     public function update(User $user, Feedback $feedback): bool
     {
-        //
+        return $user->id === $feedback->project->manager_id || 
+           $user->id === $feedback->assigned_to_user_id;
     }
 
     /**
@@ -45,9 +48,29 @@ class FeedbackPolicy
      */
     public function delete(User $user, Feedback $feedback): bool
     {
-        //
+        return $user->id === $feedback->project->manager_id;
     }
 
+    public function assign(User $user, Feedback $feedback)
+    {
+    
+    return $user->id === $feedback->project->manager_id;
+    }
+
+   public function updateStatus(User $user, Feedback $feedback)
+   {
+    // 1. If assigned to a specific user, only they can update it
+    if ($feedback->assigned_to_user_id) {
+        return $user->id === $feedback->assigned_to_user_id;
+    }
+
+    // 2. If assigned to a team, check if the user is a member of that team
+    if ($feedback->assigned_to_team_id) {
+        return $user->team_id === $feedback->assigned_to_team_id;
+    }
+
+    return false;
+   }
     /**
      * Determine whether the user can restore the model.
      */

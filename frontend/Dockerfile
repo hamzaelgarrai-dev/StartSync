@@ -1,27 +1,25 @@
-# -------- Stage 1: Build React --------
-FROM node:24-alpine AS build
-
+# --- Stage 1: Build (Common) ---
+FROM node:20-alpine AS build-stage
 WORKDIR /app
-
-# Copy package files and install dependencies
 COPY package*.json ./
-RUN npm ci
-
-# Copy all source code and build
+RUN npm install
 COPY . .
+
+# --- Stage 2: Development (Hot Reload) ---
+FROM build-stage AS dev
+# Vite needs port 5173
+EXPOSE 5173
+# The 'host' flag is required to access the dev server from outside the container
+CMD ["npm", "run", "dev", "--", "--host"]
+
+# --- Stage 3: Production (Nginx) ---
+FROM build-stage AS production-build
 RUN npm run build
 
-# -------- Stage 2: Serve with Nginx --------
-FROM nginx:alpine
-
-# Copy React build files
-COPY --from=build /app/dist /usr/share/nginx/html
-
-# Copy custom Nginx config
-COPY ./docker/nginx/default.conf /etc/nginx/conf.d/default.conf
-
-# Expose port 80
+FROM nginx:stable-alpine AS prod
+# Copy the 'dist' folder (Vite) or 'build' folder (CRA) to Nginx
+COPY --from=production-build /app/dist /usr/share/nginx/html
+# Copy a custom nginx config to handle React Router routes
+COPY nginx.conf /etc/nginx/conf.d/default.conf
 EXPOSE 80
-
-# Start Nginx
 CMD ["nginx", "-g", "daemon off;"]

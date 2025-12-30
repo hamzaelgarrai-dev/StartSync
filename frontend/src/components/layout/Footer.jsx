@@ -41,7 +41,7 @@ function Footer() {
 
   return (
 
-    <div className='max-w-7xl mx-auto  h-65 flex justify-between mt-20'>
+    <div className=' h-65 flex justify-between mt-20 max-w-7xl mx-auto px-6'>
 
         <div className=' w-80 h-full'>
 

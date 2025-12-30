@@ -45,19 +45,25 @@ class User extends Authenticatable
     ];
 
     public function project(){
-        return $this->hasMany(Project::class);
+        return $this->hasMany(Project::class , 'manager_id');
     }
 
      public function feedbackSent(){
-        return $this->hasMany(Feedback::class);
+        return $this->hasMany(Feedback::class, 'client_id');
     }
 
     public function assignedFeedback(){
-        return $this->hasMany(Feedback::class);
+        return $this->hasMany(Feedback::class , 'assigned_to_user_id');
     }
 
     public function team(){
         return $this->belongsTo(Team::class);
     }
 
+    public function managedFeedbacks()
+{
+    return $this->hasManyThrough( Feedback::class,  Project::class, 
+        'manager_id',  'project_id',  'id',         'id'          
+    );
+}
 }

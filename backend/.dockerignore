@@ -1,0 +1,26 @@
+# Vendor directories and files
+/vendor
+/node_modules
+
+# Laravel-specific cache, logs, and storage files
+/storage/*.key
+/public/storage
+/public/hot
+/bootstrap/cache/*.php
+
+# Environment and configuration files
+.env
+.env.testing
+Homestead.json
+Homestead.yaml
+
+# Development tools and OS files
+.git
+.gitignore
+.phpunit.result.cache
+npm-debug.log
+yarn-error.log
+.idea/
+.vscode/
+Thumbs.db
+.DS_Store

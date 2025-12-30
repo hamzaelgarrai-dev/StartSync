@@ -1,5 +1,5 @@
 <?php
-
+$startTime = microtime(true);
 use Illuminate\Contracts\Http\Kernel;
 use Illuminate\Http\Request;
 
@@ -53,3 +53,6 @@ $response = $kernel->handle(
 )->send();
 
 $kernel->terminate($request, $response);
+
+
+file_put_contents('php://stderr', "Total Request Time: " . (microtime(true) - $startTime) . " seconds\n");

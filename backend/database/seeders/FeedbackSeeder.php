@@ -16,32 +16,32 @@ class FeedbackSeeder extends Seeder
     public function run(): void
     {
         $projects = Project::all();
-        $clients = User::where('role', 'client')->get();
+    $clients = User::where('role', 'client')->get();
+    
+    // The specific user you want to populate data for
+    $myUser = User::find(2);
 
-        $projects->each(function ($project) use ($clients) {
-            
-            $team = $project->team;
-            $members = $team ? User::where('team_id', $team->id)->get() : collect();
+    if (!$myUser) {
+        $this->command->error("User 2 not found. Seeding aborted.");
+        return;
+    }
 
-            
-            for ($i = 0; $i < rand(5, 10); $i++) {
-                $feedback = Feedback::create([
-                    'title' => fake()->sentence(),
-                    'description' => fake()->paragraph(3),
-                    'status' => fake()->randomElement(['open', 'in_progress', 'done', 'closed']),
-                    'priority' => fake()->randomElement(['low', 'medium', 'high', 'urgent']),
-                    'project_id' => $project->id,
-                    'client_id' => $clients->random()->id,
-                    'created_at' => fake()->dateTimeBetween('-3 months', 'now'),
-                ]);
-
-                
-                if (rand(0, 1) && $team) {
-                    $feedback->update(['assigned_to_team_id' => $team->id]);
-                } elseif ($members->isNotEmpty()) {
-                    $feedback->update(['assigned_to_user_id' => $members->random()->id]);
-                }
-            }
-        });
+    $projects->each(function ($project) use ($clients, $myUser) {
+        // Create 3 feedbacks specifically for User 2 per project
+        for ($i = 0; $i < 3; $i++) {
+            Feedback::create([
+                'title' => fake()->sentence(4),
+                'description' => fake()->paragraph(2),
+                'status' => fake()->randomElement(['open', 'in_progress', 'done']),
+                'priority' => fake()->randomElement(['low', 'medium', 'high']),
+                'project_id' => $project->id,
+                'client_id' => $clients->random()->id ?? 1, // Fallback to ID 1 if no clients
+                'assigned_to_user_id' => $myUser->id, // DIRECT ASSIGNMENT
+                'created_at' => fake()->dateTimeBetween('-1 month', 'now'),
+            ]);
+        }
+    });
+    
+    $this->command->info("Successfully assigned " . ($projects->count() * 3) . " feedbacks to User 2.");
     }
 }
