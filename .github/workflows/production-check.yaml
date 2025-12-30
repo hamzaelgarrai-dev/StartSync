@@ -46,11 +46,6 @@ jobs:
         run: |
           docker compose exec -T laravel composer install
 
-        run: |
-          SERVICE_ID=$(docker compose ps -q laravel)
-          echo "Targeting Container ID: $SERVICE_ID"
-          docker compose exec -T laravel composer install
-
       # Setup environment - single command
       - name: Setup Laravel
         run: |
