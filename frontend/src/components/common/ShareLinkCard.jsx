@@ -2,7 +2,7 @@ const ShareLinkCard = ({ projectId , projectName }) => {
   const shareUrl = `${window.location.origin}/submit-feedback/${projectId}`;
 
   return (
-    <div className="bg-blue-50 border border-blue-100 p-4 rounded-lg flex flex-col items-center justify-between">
+    <div className="bg-blue-50 border h-44 border-blue-100 p-4 rounded-lg flex flex-col items-center justify-between">
         
       <p>{projectName}</p>
       <div className="space-y-2">

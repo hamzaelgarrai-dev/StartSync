@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import api from "../../services/api"
 import { useForm } from "react-hook-form"
 import { useLoginMutation } from '../../features/auth/authApiSlice';
@@ -6,6 +6,7 @@ import { useDispatch } from 'react-redux'
 import { setCredentials } from '../../features/auth/authSlice'
 import GoogleLogin from "./GoogleLogin";
 import { LoadingIndicator } from "../../components/application/loading-indicator/loading-indicator";
+
 
 function Login() {
 
@@ -107,7 +108,10 @@ function Login() {
                     <button disabled={isLoading} type='submit'
                      className=' disabled:bg-gray-300 w-full h-12 bg-[#0059F3] rounded-4xl flex justify-center items-center text-white cursor-pointer'>Sign In
                       </button>
-                    <p>Don’t Have an account ? <span className='text-[#044FD2]'>Create an Account</span></p>
+                      
+                      <p>Don’t Have an account ? <Link to="/register"><span className='text-[#044FD2]'>Create an Account</span></Link></p>
+                      
+                    
 
                     
                     

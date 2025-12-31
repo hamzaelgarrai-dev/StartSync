@@ -1,7 +1,8 @@
 import { LoadingIndicator } from "../../components/application/loading-indicator/loading-indicator";
 import AddMemberModal from "../../components/modals/AddMemberModal";
+import DeleteTeamModal from "../../components/modals/DeleteTeamModal";
 import { useGetTeamsQuery } from "../../features/manager/teamApiSlice"
-import { Activity , useState } from "react";
+import { useState } from "react";
 
 
         
@@ -17,12 +18,19 @@ export const Team = () =>{
     
 
 const { data : teams, isLoading } = useGetTeamsQuery()
-const [show , setShow] = useState(false)
+const [showAddMember , setShowAddMember] = useState(false)
+const [showDeleteMember , setShowDeleteMember] = useState(false)
 const [selectedTeamId, setSelectedTeamId] = useState(null)
  const handleOpenModal = (id) => {
-        setSelectedTeamId(id); 
-        setShow(true);
-};
+        setSelectedTeamId(id)
+        setShowAddMember(true)
+        
+}
+
+const handleOpenDeleteModal = (teamID) =>{
+    setShowDeleteMember(true)
+    setSelectedTeamId(teamID)
+}
 
 
 
@@ -103,7 +111,7 @@ return(
 
                         
                         <td className="px-6 py-4">
-                           <button className="bg-[#EB2528] w-22 h-8 text-white rounded-md cursor-pointer">Delete</button>
+                           <button onClick={() => handleOpenDeleteModal(team.id)} className="bg-[#EB2528] w-22 h-8 text-white rounded-md cursor-pointer">Delete</button>
                         </td>
 
                         
@@ -127,19 +135,34 @@ return(
             </div>
 
 
-            {show && <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50"
-               onClick={() => setShow(false)}>
+            {showAddMember && <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50"
+               onClick={() => setShowAddMember(false)}>
                 <div className="w-full max-w-md"
                     onClick={(e) => e.stopPropagation()}>
 
-                <Activity mode={show ? "visible" : "hidden"}
-                       className="bg-white rounded-xl shadow-lg p-6">
+                
 
                     <AddMemberModal teamId={selectedTeamId}/>
 
-                </Activity>
+                
                 </div>
             </div>}
+            {showDeleteMember && <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50"
+               onClick={() => setShowDeleteMember(false)}>
+                <div className="w-full max-w-md"
+                    onClick={(e) => e.stopPropagation()}>
+
+                
+
+                    <DeleteTeamModal teamId={selectedTeamId} onClose={() => setShowDeleteMember(false)} />
+
+                
+                </div>
+            </div>
+
+            }
+
+
 
     </div>
     </div>

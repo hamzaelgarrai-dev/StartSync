@@ -14,12 +14,11 @@ function Hero() {
 
         <p className='mt-4 max-w-150 text-center text-lg font-normal leading-relaxed text-white/90'>Product teams rely on StartSync to collect actionable user feedback, so they can build better and keep customers happy.</p>
 
-        <div className='flex mt-8 space-x-4 mb-14 '>
+        <div className='flex mx-auto mt-8 mb-14 '>
             <Link to="/register">
-                  <button className='bg-white w-42 h-10 font-medium text-[#297FFF] rounded-[40px] cursor-pointer'>Get Started Free</button>
+                  <button className='bg-white w-44 h-13 font-medium text-[#297FFF] rounded-[40px] cursor-pointer transition-all duration-300 ease-out hover:scale-95'>Get Started Free</button>
             </Link>
             
-            <button className='text-white cursor-pointer'>Explore More</button>
 
         </div>
 

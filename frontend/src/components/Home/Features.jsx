@@ -1,6 +1,5 @@
 import React from 'react'
-import StartNowBtn from '../common/StartNowBtn'
-import {Camera} from "lucide-react"
+import {Camera , Users , Folder} from "lucide-react"
 
 function Features() {
   return (
@@ -10,10 +9,6 @@ function Features() {
 
             <h2 className='font-medium tracking-[-0.02em] text-[58px] max-w-3xl leading-tight'>Everything You Need For Better <span className='text-[#044FD2]'>Feedback</span></h2>
 
-            <div className='flex items-end'>
-                <StartNowBtn/>
-            </div>
-            
 
         </div>
 
@@ -32,10 +27,10 @@ function Features() {
 
             <div className='rounded-3xl border border-[#e0e7f5] p-2 bg-[#F4F8FC]'>
                 <div className='rounded-2xl border border-[#e0e7f5] bg-white px-2 py-6 flex items-center gap-3'>
-                <div className='bg-linear-to-b from-[#0047C7] to-[#5A92F2] w-18 h-18 rounded-full flex justify-center items-center text-[#EFF5FF]'><Camera className='size-8' /></div>
+                <div className='bg-linear-to-b from-[#0047C7] to-[#5A92F2] w-18 h-18 rounded-full flex justify-center items-center text-[#EFF5FF]'><Users className='size-8'/></div>
                 <div className='flex flex-col'>
-                    <p className='font-medium mb-1.5'>Visual Feedback</p>
-                    <p className='text-sm max-w-60'>Capture screenshots automatically with every feedback submission. See exactly what users see. </p>
+                    <p className='font-medium mb-1.5'>Team Collaboration</p>
+                    <p className='text-sm max-w-60'>Organize feedback by projects. Keep your team aligned and productive.</p>
                 </div>
 
              </div>
@@ -44,10 +39,10 @@ function Features() {
 
             <div className='rounded-3xl border border-[#e0e7f5] p-2 bg-[#F4F8FC]'>
                 <div className='rounded-2xl border border-[#e0e7f5] bg-white px-2 py-6 flex items-center gap-3'>
-                <div className='bg-linear-to-b from-[#0047C7] to-[#5A92F2] w-18 h-18 rounded-full flex justify-center items-center text-[#EFF5FF]'><Camera className='size-8' /></div>
+                <div className='bg-linear-to-b from-[#0047C7] to-[#5A92F2] w-18 h-18 rounded-full flex justify-center items-center text-[#EFF5FF]'><Folder className='size-8'/></div>
                 <div className='flex flex-col'>
-                    <p className='font-medium mb-1.5'>Visual Feedback</p>
-                    <p className='text-sm max-w-60'>Capture screenshots automatically with every feedback submission. See exactly what users see. </p>
+                    <p className='font-medium mb-1.5'>Project Management</p>
+                    <p className='text-sm max-w-60'>Monitor projects effortlessly with automatic updates. Know precisely what’s happening at every stage.</p>
                 </div>
 
              </div>

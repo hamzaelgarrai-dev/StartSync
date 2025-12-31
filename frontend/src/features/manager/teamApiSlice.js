@@ -9,6 +9,7 @@ export const teamApi = apiSlice.injectEndpoints({
       providesTags: ['Teams'], 
       keepUnusedDataFor: 500,
     }),
+
     createTeam: builder.mutation({
       query: (newTeam) => ({
         url: '/teams',
@@ -19,6 +20,32 @@ export const teamApi = apiSlice.injectEndpoints({
      
       invalidatesTags: ['Teams'], 
     }),
+
+    deleteTeam : builder.mutation({
+      query:(teamId) =>({
+        url: `teams/${teamId}/`,
+        method: 'DELETE',
+      }),
+      invalidatesTags: (teamId) => [
+      { type: 'Teams', id: 'LIST' },
+      { type: 'Teams', id: teamId } 
+     ],
+     async onQueryStarted(teamId, { dispatch, queryFulfilled }) {
+        const patchResult = dispatch(
+        apiSlice.util.updateQueryData('getTeams', undefined, (draft) => {
+        return draft.filter((team) => team.id !== teamId)
+      })
+    );
+    try {
+      await queryFulfilled
+    } catch {
+      patchResult.undo()
+    }
+  }, 
+    }),
+
+
+
     sendInvite: builder.mutation({
       query: ({ teamId, email }) => ({
         url: `/teams/${teamId}/invite`,
@@ -32,4 +59,4 @@ export const teamApi = apiSlice.injectEndpoints({
   }),
 })
 
-export const  { useGetTeamsQuery, useCreateTeamMutation, useSendInviteMutation }  = teamApi
+export const  { useGetTeamsQuery, useCreateTeamMutation, useSendInviteMutation, useDeleteTeamMutation }  = teamApi

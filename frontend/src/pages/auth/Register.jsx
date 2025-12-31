@@ -1,5 +1,5 @@
 
-import { useNavigate } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import { useForm } from "react-hook-form"
 import { useSignupMutation } from "../../features/auth/authApiSlice"
 import { useDispatch } from "react-redux"
@@ -102,7 +102,7 @@ function Register() {
 
                 <div className='flex flex-col justify-center items-center space-y-3.5'>
                     <button disabled={isLoading} type='submit' className='disabled:bg-gray-300 w-full h-12 bg-[#0059F3] rounded-4xl flex justify-center items-center text-white cursor-pointer'>Sign Up</button>
-                    <p>Aleardy  Have an account ? <span className=' text-[#044FD2]'>Sign In</span></p>
+                    <p>Aleardy  Have an account ? <Link to="/login"><span className=' text-[#044FD2]'>Sign In</span></Link> </p>
                 </div>
                 
 

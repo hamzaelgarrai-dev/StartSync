@@ -21,30 +21,36 @@ class GoogleAuthController extends Controller
         try {
         $googleUser = Socialite::driver('google')->stateless()->user();
 
-        
         $user = User::updateOrCreate(
             ['email' => $googleUser->getEmail()], 
             [
                 'name' => $googleUser->getName(),
                 'google_id' => $googleUser->getId(),
                 'password' => bcrypt(Str::random(16)),
-                'role' => "project_manager"
+                'role' => "project_manager" 
             ]
         );
 
         $token = $user->createToken('auth_token')->plainTextToken;
 
-         return response()->json([
-                'user'         => $user,
-                'access_token' => $token,
-                'token_type'   => 'Bearer',
-            ]);
+        $data = json_encode([
+            'user' => $user,
+            'access_token' => $token,
+            'token_type' => 'Bearer',
+        ]);
+
+        return response("
+            <script>
+                window.opener.postMessage({
+                    type: 'AUTH_SUCCESS',
+                    payload: $data
+                }, 'http://127.0.0.1:5173');
+                window.close();
+            </script>
+        ", 200);
 
     } catch (\Exception $e) {
-        return response()->json([
-            'message' => 'Google login failed',
-            'error' => $e->getMessage()
-        ], 500);
+        return response("<script>window.close();</script>", 500);
     }
     }
 

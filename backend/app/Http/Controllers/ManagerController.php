@@ -17,6 +17,9 @@ class ManagerController extends Controller
     /**
      * Display a listing of the resource.
      */
+
+    //overview logic
+
     public function feedbacks(Request $request)
     {
         $feedback = $request->user()->managedFeedbacks()
@@ -83,7 +86,7 @@ class ManagerController extends Controller
     ]);
 
     return response()->json(['success' => true, 'message' => 'Feedback assigned successfully']);
-}
+    }
 
 
 
@@ -140,6 +143,75 @@ class ManagerController extends Controller
     ], 201);
     }
 
+
+    public function deleteTeam($id)
+    {
+        
+        $team = Team::find($id);
+
+        
+        if (!$team) {
+            return response()->json([
+                'message' => 'Team not found'
+            ], 404);
+        }
+        $team->delete();
+
+        return response()->json([
+            'message' => 'Team deleted successfully'
+        ], 200);
+    }
+
+
+    public function invite(Request $request , Team $team) {
+    
+   $invitation = Invitation::create([
+        'team_id' => $team->id,
+        'email'   => $request->email,
+    ]);
+
+    
+    $url = URL::temporarySignedRoute(
+        'team.accept', 
+        now()->addDays(3), 
+        [
+            'team'  => $invitation->team_id, 
+            'email' => $invitation->email,
+            'token' => $invitation->token 
+        ]
+    );
+    Mail::to($request->email)->queue(new TeamInvitationMail($url, $team->name));
+
+        return response()->json(['message' => 'Invitation sent successfully']);
+
+    }
+
+   public function accept(Request $request, Team $team, $email)
+{
+    
+    if (! $request->hasValidSignature()) {
+        return response()->json(['message' => 'This link is invalid or expired.'], 403);
+    }
+    $user = User::where('email', $email)->first();
+
+    if (!$user) {
+        return redirect("http://localhost:5173/register?email=" . urlencode($email) . "&team=" . $team->id);
+    }
+
+    if (!$team->members()->where('user_id', $user->id)->exists()) {
+        $team->members()->attach($user->id);
+    }
+
+    
+    Invitation::where('email', $email)->where('team_id', $team->id)->delete();
+
+    
+    return redirect("http://localhost:5173/login?email=" . urlencode($email) . "&team_id=" . $team->id);
+   }
+
+
+
+    //project logic
    public function projects(Request $request)
    {
 
@@ -171,51 +243,7 @@ class ManagerController extends Controller
 
 
 
-public function invite(Request $request , Team $team) {
-    
-   $invitation = Invitation::create([
-        'team_id' => $team->id,
-        'email'   => $request->email,
-    ]);
 
-    
-    $url = URL::temporarySignedRoute(
-        'team.accept', 
-        now()->addDays(3), 
-        [
-            'team'  => $invitation->team_id, 
-            'email' => $invitation->email,
-            'token' => $invitation->token 
-        ]
-    );
-    Mail::to($request->email)->queue(new TeamInvitationMail($url, $team->name));
-
-        return response()->json(['message' => 'Invitation sent successfully']);
-
-}
-
-public function accept(Request $request, Team $team, $email)
-{
-    
-    if (! $request->hasValidSignature()) {
-        return response()->json(['message' => 'This link is invalid or expired.'], 403);
-    }
-    $user = User::where('email', $email)->first();
-
-    if (!$user) {
-        return redirect("http://localhost:5173/register?email=" . urlencode($email) . "&team=" . $team->id);
-    }
-
-    if (!$team->members()->where('user_id', $user->id)->exists()) {
-        $team->members()->attach($user->id);
-    }
-
-    
-    Invitation::where('email', $email)->where('team_id', $team->id)->delete();
-
-    
-    return redirect("http://localhost:5173/login?email=" . urlencode($email) . "&team_id=" . $team->id);
-}
 
 
 
