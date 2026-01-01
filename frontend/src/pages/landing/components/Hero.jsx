@@ -1,8 +1,8 @@
 import React from 'react'
 
-import dashboardImage from "../../assets/images/hero/Manager Overview Dashboard.webp"
-import leftglass from "../../assets/images/hero/left.webp"
-import rightglass from "../../assets/images/hero/right.webp"
+import dashboardImage from "../../../assets/images/hero/Manager Overview Dashboard.webp"
+import leftglass from "../../../assets/images/hero/left.webp"
+import rightglass from "../../../assets/images/hero/right.webp"
 import { Link } from 'react-router-dom'
 
 function Hero() {

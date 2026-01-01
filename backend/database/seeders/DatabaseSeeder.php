@@ -23,7 +23,6 @@ class DatabaseSeeder extends Seeder
             ProjectSeeder::class,
             TeamSeeder::class,
             FeedbackSeeder::class,
-            ScreenshotSeeder::class,
         ]);
     }
 }

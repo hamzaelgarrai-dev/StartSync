@@ -1,8 +1,8 @@
 import React from 'react'
 import { ListChecks, CircleCheck, Clock, ChartLine } from "lucide-react"
-import StatsCard from '../../components/common/StatsCard'
-import { useGetIssuesQuery, useGetStatsQuery } from '../../features/manager/issuesApiSlice'
-import { LoadingIndicator } from '../../components/application/loading-indicator/loading-indicator'
+import StatsCard from '../../components/ui/StatsCard'
+import { useGetIssuesQuery, useGetStatsQuery } from '../../features/feedbacks/issuesApiSlice'
+import { LoadingIndicator } from '../../components/ui/loading-indicator'
 
 export const Overview = () => {
 

@@ -17,8 +17,9 @@ return new class extends Migration
             $table->text('description');
             $table->string('priority')->default('medium');
             $table->string('status')->default('open');
+            $table->string('image_url')->nullable();;
             $table->foreignId('project_id')->constrained('projects')->onDelete('cascade');
-            $table->foreignId('client_id')->constrained('users')->onDelete('cascade');
+            $table->foreignId('client_id')->nullable()->constrained('users')->onDelete('cascade');
             $table->foreignId('assigned_to_user_id')->nullable()->constrained('users')->onDelete('cascade');
             $table->foreignId('assigned_to_team_id')->nullable()->constrained('teams')->onDelete('cascade');
             $table->timestamps();

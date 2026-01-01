@@ -1,8 +1,8 @@
 import React from 'react'
-import profile1 from "../../assets/images/testimonials/profile1.webp"
-import profile2 from "../../assets/images/testimonials/profile2.webp"
-import profile3 from "../../assets/images/testimonials/profile3.webp"
-import profile4 from "../../assets/images/testimonials/profile4.webp"
+import profile1 from "../../../assets/images/testimonials/profile1.webp"
+import profile2 from "../../../assets/images/testimonials/profile2.webp"
+import profile3 from "../../../assets/images/testimonials/profile3.webp"
+import profile4 from "../../../assets/images/testimonials/profile4.webp"
 import { Star } from 'lucide-react'
 
 function Testimonials() {

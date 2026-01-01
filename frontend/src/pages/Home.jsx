@@ -1,9 +1,9 @@
 import React from 'react'
-import Hero from '../components/Home/Hero'
-import Features from '../components/Home/Features'
-import HowItWorks from '../components/Home/HowItWorks'
-import Testimonials from '../components/Home/Testimonials'
-import CTA from '../components/Home/CTA'
+import Hero from '../pages/landing/components/Hero'
+import Features from '../pages/landing/components/Features'
+import HowItWorks from '../pages/landing/components/HowItWorks'
+import Testimonials from '../pages/landing/components/Testimonials'
+import CTA from '../pages/landing/components/CTA'
 
 function Home() {
   return (
@@ -12,7 +12,7 @@ function Home() {
 
     <div className='max-w-7xl mx-auto px-6'>
 
-      <Hero/>
+    <Hero/>
     <Features/>
     <HowItWorks/>
     <Testimonials/>

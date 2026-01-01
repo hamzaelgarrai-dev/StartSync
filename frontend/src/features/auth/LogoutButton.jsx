@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom'
-import { useLogoutMutation } from '../../features/auth/authApiSlice'
+import { useLogoutMutation } from './authApiSlice'
 import { useDispatch } from 'react-redux'
 import { LogOut } from 'lucide-react'
 

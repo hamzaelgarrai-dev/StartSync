@@ -1,7 +1,7 @@
 import React from 'react'
 import { useForm } from "react-hook-form"
 import toast from 'react-hot-toast';
-import { useSendInviteMutation } from '../../features/manager/teamApiSlice';
+import { useSendInviteMutation } from '../../features/teams/teamApiSlice';
 
 function AddMemberModal({teamId}) {
   const [sendInvite, { isLoading }] = useSendInviteMutation()

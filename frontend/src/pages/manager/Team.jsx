@@ -1,7 +1,7 @@
-import { LoadingIndicator } from "../../components/application/loading-indicator/loading-indicator";
-import AddMemberModal from "../../components/modals/AddMemberModal";
-import DeleteTeamModal from "../../components/modals/DeleteTeamModal";
-import { useGetTeamsQuery } from "../../features/manager/teamApiSlice"
+import { LoadingIndicator } from "../../components/ui/loading-indicator";
+import AddMemberModal from "../../features/teams/AddMemberModal";
+import DeleteTeamModal from "../../features/teams/DeleteTeamModal";
+import { useGetTeamsQuery } from "../../features/teams/teamApiSlice"
 import { useState } from "react";
 
 

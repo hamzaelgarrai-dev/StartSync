@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { setCredentials } from '../../features/auth/authSlice';
+import { setCredentials } from './authSlice';
 import GoogleSvg from '../../assets/Svgs/GoogleSvg';
 
 function GoogleLogin() {

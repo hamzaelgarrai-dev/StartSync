@@ -24,6 +24,7 @@ class FeedbackFactory extends Factory
             'description' => fake()->paragraph(),
             'status' => fake()->randomElement(['open', 'in_progress', 'done']),
             'priority' => fake()->randomElement(['low', 'medium', 'high']),
+            "image_url"=>fake()->imageUrl(),
             'project_id' => Project::factory(),
             'client_id' => User::factory()->client(),
             'assigned_to_user_id' => null,

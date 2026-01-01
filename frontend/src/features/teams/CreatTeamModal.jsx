@@ -1,8 +1,8 @@
 import React from 'react'
 import { useForm } from "react-hook-form"
-import { useGetProjectsQuery } from '../../features/manager/projectApiSlice'
+import { useGetProjectsQuery } from '../../features/projects/projectApiSlice'
 import toast from 'react-hot-toast';
-import { useCreateTeamMutation } from '../../features/manager/teamApiSlice';
+import { useCreateTeamMutation } from '../../features/teams/teamApiSlice';
 
 function CreatTeamModal({ onClose }) {
 

@@ -1,6 +1,6 @@
 import React from 'react'
-import StartNowBtn from '../common/StartNowBtn'
-import CtaImage from "../../assets/images/CTA/ctaImage.webp"
+import StartNowBtn from '../../../components/ui/StartNowBtn'
+import CtaImage from "../../../assets/images/CTA/ctaImage.webp"
 
 export default function CTA() {
   return (

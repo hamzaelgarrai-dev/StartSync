@@ -9,12 +9,9 @@ class Feedback extends Model
 {
     use HasFactory;
 
-    protected $fillable = ["title","description","status","priority","project_id","client_id", "assigned_to_user_id" , "assigned_to_team_id"];
+    protected $fillable = ["title","description","status","priority","image_url","project_id","client_id", "assigned_to_user_id" , "assigned_to_team_id"];
 
-    public function screenshot(){
 
-        return $this->hasMany(Screenshot::class);
-    }
 
     public function project(){
         return $this->belongsTo(Project::class);

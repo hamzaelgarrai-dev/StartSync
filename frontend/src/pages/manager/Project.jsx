@@ -1,9 +1,9 @@
 import{FolderPlus} from "lucide-react"
 import { useState } from "react"
-import CreateProjectModal from "../../components/modals/CreateProjectModal"
-import { useGetProjectsQuery } from "../../features/manager/projectApiSlice"
-import { LoadingIndicator } from "../../components/application/loading-indicator/loading-indicator"
-import ShareLinkCard from "../../components/common/ShareLinkCard"
+import CreateProjectModal from "../../features/projects/CreateProjectModal"
+import { useGetProjectsQuery } from "../../features/projects/projectApiSlice"
+import { LoadingIndicator } from "../../components/ui/loading-indicator"
+import ShareLinkCard from "../../features/projects/ShareLinkCard"
 
 
 export const Project = () => {

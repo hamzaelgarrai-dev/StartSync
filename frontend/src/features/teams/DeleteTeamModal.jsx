@@ -1,5 +1,5 @@
 import React from 'react'
-import { useDeleteTeamMutation } from '../../features/manager/teamApiSlice'
+import { useDeleteTeamMutation } from '../../features/teams/teamApiSlice'
 import toast from 'react-hot-toast';
 
 function DeleteTeamModal({onClose , teamId}) {

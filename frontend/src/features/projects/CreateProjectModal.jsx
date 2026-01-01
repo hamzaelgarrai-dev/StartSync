@@ -1,6 +1,6 @@
 import React from 'react'
 import { useForm } from "react-hook-form"
-import { useCreateProjectMutation } from '../../features/manager/projectApiSlice';
+import { useCreateProjectMutation } from './projectApiSlice';
 import toast from 'react-hot-toast'
 
 

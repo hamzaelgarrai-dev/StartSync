@@ -27,16 +27,18 @@ class FeedbackSeeder extends Seeder
     }
 
     $projects->each(function ($project) use ($clients, $myUser) {
-        // Create 3 feedbacks specifically for User 2 per project
         for ($i = 0; $i < 3; $i++) {
             Feedback::create([
                 'title' => fake()->sentence(4),
                 'description' => fake()->paragraph(2),
                 'status' => fake()->randomElement(['open', 'in_progress', 'done']),
                 'priority' => fake()->randomElement(['low', 'medium', 'high']),
+                'image_url'   => fake()->boolean(70) ? fake()->imageUrl(800, 600, 'business') : null,
                 'project_id' => $project->id,
-                'client_id' => $clients->random()->id ?? 1, // Fallback to ID 1 if no clients
-                'assigned_to_user_id' => $myUser->id, // DIRECT ASSIGNMENT
+                'client_id'   => fake()->boolean(80) && $clients->isNotEmpty() 
+                             ? $clients->random()->id 
+                             : null, 
+                'assigned_to_user_id' => $myUser->id, 
                 'created_at' => fake()->dateTimeBetween('-1 month', 'now'),
             ]);
         }

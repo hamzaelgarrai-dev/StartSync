@@ -1,10 +1,10 @@
 import{ListChecks, CircleCheck, Clock, Dot} from "lucide-react"
-import StatsCard from '../../components/common/StatsCard'
+import StatsCard from '../../components/ui/StatsCard'
 import { useEffect, useState } from 'react'
-import { Column } from './kanban/Column'
+import { Column } from '../../features/kanban/Column'
 import { DndContext} from '@dnd-kit/core';
-import { useGetAssignedFeedbacksQuery, useGetIssuesQuery, useUpdateIssueStatusMutation } from "../../features/manager/issuesApiSlice";
-import { LoadingIndicator } from "../../components/application/loading-indicator/loading-indicator";
+import { useGetAssignedFeedbacksQuery, useGetIssuesQuery, useUpdateIssueStatusMutation } from "../../features/feedbacks/issuesApiSlice";
+import { LoadingIndicator } from "../../components/ui/loading-indicator";
 
 
 const COLUMNS = [

@@ -1,4 +1,4 @@
-import { cx } from "../../../cx";
+import { cx } from "../../../src/utils/cx";
 
 const styles = {
     sm: {

@@ -2,7 +2,7 @@
 import DashboardLayout from '../../components/layout/DashboardLayout'
 import { Outlet, useLocation } from 'react-router-dom'
 import { ChartNoAxesGantt, Users, FolderKanban, HardDriveDownload, Plus } from "lucide-react"
-import CreatTeamModal from '../../components/modals/CreatTeamModal'
+import CreatTeamModal from '../../features/teams/CreatTeamModal'
 import { Activity, useState } from 'react'
 
 export const managerMenuItems = [

@@ -38,9 +38,7 @@ class UserSeeder extends Seeder
             
         ]);
 
-        // Create random users
-        User::factory()->projectManager()->count(5)->create();
-        User::factory()->projectMember()->count(15)->create();
-        User::factory()->client()->count(10)->create();
+
+
     }
 }

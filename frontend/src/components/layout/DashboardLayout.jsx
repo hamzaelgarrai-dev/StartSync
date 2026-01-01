@@ -2,7 +2,7 @@ import { Link, useLocation , useNavigate} from 'react-router-dom'
 import {LogOut} from "lucide-react"
 import { useSelector  } from "react-redux"
 import { selectCurrentUser} from "../../features/auth/authSlice"
-import LogoutButton from '../common/LogoutButton';
+import LogoutButton from '../../features/auth/LogoutButton';
 
 const DashboardLayout = ({
   children,

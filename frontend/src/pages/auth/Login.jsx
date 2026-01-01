@@ -1,11 +1,10 @@
 import { Link, useNavigate } from "react-router-dom"
-import api from "../../services/api"
 import { useForm } from "react-hook-form"
 import { useLoginMutation } from '../../features/auth/authApiSlice';
 import { useDispatch } from 'react-redux'
 import { setCredentials } from '../../features/auth/authSlice'
-import GoogleLogin from "./GoogleLogin";
-import { LoadingIndicator } from "../../components/application/loading-indicator/loading-indicator";
+import GoogleLogin from "../../features/auth/GoogleLogin";
+import { LoadingIndicator } from "../../components/ui/loading-indicator";
 
 
 function Login() {

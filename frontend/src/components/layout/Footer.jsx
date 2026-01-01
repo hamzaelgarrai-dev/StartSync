@@ -1,42 +1,39 @@
 import React from 'react'
-import api from "../../services/api"
 import { useForm } from "react-hook-form"
+import { useSubscribeNewsletterMutation } from '../../features/marketing/marketingApiSlice';
+import toast from 'react-hot-toast';
 
 
 function Footer() {
 
-     const {
+  const [subscribe, { isLoading }] = useSubscribeNewsletterMutation()
+
+  const {
     register,
-    setError,
     handleSubmit,
     reset,
-    formState: { errors , isSubmitting},
+    formState: { errors },
   } = useForm()
 
 
   const onSubmit = async(data) =>{
 
+    const loadingToast = toast.loading('Subscribing ...')
     try{
-         await api.post("/newsletter/subscribe", data)
-         
-            reset()
+         await subscribe(data.email).unwrap();
+         toast.success("subscribe succefully" , {id : loadingToast})
+          reset()
             
     }catch(error){
-      if (error.response?.status === 422) {
-      const serverErrors = error.response.data.errors
-
-      Object.entries(serverErrors).forEach(([field, messages]) => {
-        setError(field, {
-          type: "server",
-          message: messages[0],
-        });
-      });
+     const msg = error.data?.message || "Failed to subscribe try again"
+      console.error(error)
+      toast.error(msg, { id: loadingToast })
     }
 
     }
     
 
-  }
+  
 
 
   return (
@@ -103,7 +100,7 @@ function Footer() {
 
                     </input>
                     {errors.email && (<p className="text-red-500">{`${errors.email.message}`}</p>)}
-                    <button type='submit' disabled={isSubmitting} className='disabled:bg-linear-to-r disabled:from-[#bebebe] disabled:to-[#aeb0b4]  bg-linear-to-r from-[#005BF8] to-[#0047C7] w-25 h-11.5 absolute right-10 top-1/2 -translate-y-1/2 rounded-4xl text-white cursor-pointer' >Subscribe</button>
+                    <button type='submit' disabled={isLoading} className='disabled:bg-linear-to-r disabled:from-[#bebebe] disabled:to-[#aeb0b4]  bg-linear-to-r from-[#005BF8] to-[#0047C7] w-25 h-11.5 absolute right-10 top-1/2 -translate-y-1/2 rounded-4xl text-white cursor-pointer' >Subscribe</button>
 
                 </form>
                 
@@ -116,6 +113,6 @@ function Footer() {
     </div>
 
   )
-}
 
+}
 export default Footer
