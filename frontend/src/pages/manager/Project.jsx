@@ -23,7 +23,7 @@ export const Project = () => {
         <>
         
         
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 min-h-screen">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 h-fit content-start p-4">
 
             <button onClick={()=> setShow(true)} className="flex flex-col justify-center items-center space-y-2.5 bg-white rounded-md border border-gray-400 border-dashed h-44 cursor-pointer">
                 

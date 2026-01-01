@@ -21,7 +21,7 @@ const { data : teams, isLoading } = useGetTeamsQuery()
 const [showAddMember , setShowAddMember] = useState(false)
 const [showDeleteMember , setShowDeleteMember] = useState(false)
 const [selectedTeamId, setSelectedTeamId] = useState(null)
- const handleOpenModal = (id) => {
+const handleOpenModal = (id) => {
         setSelectedTeamId(id)
         setShowAddMember(true)
         

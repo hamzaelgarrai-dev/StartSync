@@ -1,19 +1,37 @@
+import React, { useState } from 'react';
+
 const ShareLinkCard = ({ projectId , projectName }) => {
-  const shareUrl = `${window.location.origin}/submit-feedback/${projectId}`;
+  const [copied, setCopied] = useState(false)
+  const shareUrl = `${window.location.origin}/submit-feedback/${projectId}`
+
+  const handleCopy = () => {
+    navigator.clipboard.writeText(shareUrl)
+    setCopied(true)
+    setTimeout(() => setCopied(false), 2000)
+  };
 
   return (
-    <div className="bg-blue-50 border h-44 border-blue-100 p-4 rounded-lg flex flex-col items-center justify-between">
-        
-      <p>{projectName}</p>
-      <div className="space-y-2">
-        
-        <p className="text-sm font-bold text-blue-900">Shareable Feedback Link</p>
-        <p className="text-xs text-blue-700">{shareUrl}</p>
+    <div className="bg-white border border-gray-300 p-5 rounded-md h-44 flex flex-col justify-between shadow-sm">
+      <div className="overflow-hidden">
+        <h3 className="text-lg font-semibold text-gray-800 truncate">{projectName}</h3>
+        <p className="text-[10px] text-gray-400 uppercase font-bold mt-1">Feedback Link</p>
       </div>
-      <button 
-        onClick={() => navigator.clipboard.writeText(shareUrl)}
-        className="bg-white px-3 py-1 text-xs font-semibold border border-blue-200 rounded shadow-sm hover:bg-blue-50"
-      >Copy Link</button>
+      <div className="w-full space-y-3">
+        <div className="bg-gray-50 border border-gray-200 px-2 py-1.5 rounded text-[11px] text-gray-500 font-mono truncate">
+          {shareUrl}
+        </div>
+        
+        <button 
+          onClick={handleCopy}
+          className={`w-full py-2 text-xs font-bold rounded transition-all border ${
+            copied 
+              ? 'bg-blue-600 border-blue-950 text-white' 
+              : 'bg-white border-gray-400 text-gray-700 hover:bg-gray-50'
+          }`}
+        >
+          {copied ? "Link Copied" : "Copy Link"}
+        </button>
+      </div>
     </div>
   )
 }
