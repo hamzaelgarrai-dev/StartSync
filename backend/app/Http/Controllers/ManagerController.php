@@ -9,8 +9,10 @@ use App\Models\Project;
 use App\Models\Team;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\URL;
+use Illuminate\Support\Str;
 
 class ManagerController extends Controller
 {
@@ -165,49 +167,34 @@ class ManagerController extends Controller
 
     public function invite(Request $request , Team $team) {
     
-   $invitation = Invitation::create([
-        'team_id' => $team->id,
-        'email'   => $request->email,
+       $request->validate([
+        'name'  => 'required|string|max:255',
+        'email' => 'required|email|unique:users,email'
+    ]);
+
+    $temporaryPassword = Str::random(10); 
+
+    $user = User::create([
+        'name'     => $request->input('name'), 
+        'email'    => $request->input('email'),
+        'password' => Hash::make($temporaryPassword),
+        'role'     => 'project_member',
     ]);
 
     
-    $url = URL::temporarySignedRoute(
-        'team.accept', 
-        now()->addDays(3), 
-        [
-            'team'  => $invitation->team_id, 
-            'email' => $invitation->email,
-            'token' => $invitation->token 
-        ]
-    );
-    Mail::to($request->email)->queue(new TeamInvitationMail($url, $team->name));
+    $team->members()->save($user);
 
-        return response()->json(['message' => 'Invitation sent successfully']);
+    Mail::to($user->email)->send(new TeamInvitationMail(
+        $user->name,
+        $user->email, 
+        $temporaryPassword, 
+        $team->name
+    ));
+
+    return response()->json(['message' => 'Member added successfully!']);
 
     }
 
-   public function accept(Request $request, Team $team, $email)
-{
-    
-    if (! $request->hasValidSignature()) {
-        return response()->json(['message' => 'This link is invalid or expired.'], 403);
-    }
-    $user = User::where('email', $email)->first();
-
-    if (!$user) {
-        return redirect("http://localhost:5173/register?email=" . urlencode($email) . "&team=" . $team->id);
-    }
-
-    if (!$team->members()->where('user_id', $user->id)->exists()) {
-        $team->members()->attach($user->id);
-    }
-
-    
-    Invitation::where('email', $email)->where('team_id', $team->id)->delete();
-
-    
-    return redirect("http://localhost:5173/login?email=" . urlencode($email) . "&team_id=" . $team->id);
-   }
 
 
 

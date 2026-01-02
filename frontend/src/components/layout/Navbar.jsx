@@ -7,7 +7,7 @@ function Navbar() {
     <div className='  h-24 flex items-center justify-between mb-4 max-w-7xl mx-auto px-6'>
 
         <Link to="/">
-            <div className=' font-bold text-[20px] text-[#333333] cursor-pointer'>StartSync</div>
+            <div className=' w-52 font-bold text-[20px] text-[#333333] cursor-pointer'>StartSync</div>
         </Link>
         
         <nav >
@@ -21,11 +21,16 @@ function Navbar() {
 
         </nav>
 
-        <div className='w-30  flex justify-end'>
+        <div className='w-52 space-x-6 flex justify-end items-center'>
 
-          <Link to="/login">
+            <Link to='/login'>
+               <button className='text-[16px] font-normal text-[#0036A5] cursor-pointer '>Sign In</button>
+            </Link>
+          
+
+          <Link to="/register">
               <button className='w-26 h-13 bg-linear-to-b from-[#0047C7] to-[#5A92F2]  rounded-4xl text-white text-[16px] cursor-pointer hover:from-[#0047C7] hover:to-[#0036A5] transition-all duration-300 ease-out hover:scale-95' >
-                Sign In
+                Sign Up
             </button>
           </Link>
             

@@ -28,9 +28,9 @@ class MemberController extends Controller
         'status' => 'required|in:open,in_progress,done',
     ]);
 
-    if ($feedback->assigned_to_user_id !== auth()->id()) {
-        return response()->json(['message' => 'Unauthorized'], 403);
-    }
+    if (!$request->user()->is($feedback->assignedUser)) { 
+    return response()->json(['message' => 'Unauthorized'], 403);
+}
 
     $feedback->update([
         'status' => $request->status

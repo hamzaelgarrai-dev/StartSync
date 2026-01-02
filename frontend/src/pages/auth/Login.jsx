@@ -110,12 +110,6 @@ function Login() {
                       
                       <p>Don’t Have an account ? <Link to="/register"><span className='text-[#044FD2]'>Create an Account</span></Link></p>
                       
-                    
-
-                    
-                    
-                    
-                     <GoogleLogin/>
                 </div>
                 
 

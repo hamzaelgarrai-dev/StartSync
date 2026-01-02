@@ -3,36 +3,37 @@ import { useForm } from "react-hook-form"
 import toast from 'react-hot-toast';
 import { useSendInviteMutation } from '../../features/teams/teamApiSlice';
 
-function AddMemberModal({teamId}) {
+function AddMemberModal({ teamId }) {
   const [sendInvite, { isLoading }] = useSendInviteMutation()
 
-    const {
-       register,
-       handleSubmit,
-       reset,
-       formState: { errors },
-    } = useForm()
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm()
 
   const onSubmit = async (data) => {
+    console.log(data)
     const loadingToast = toast.loading('Sending Invite...');
-        try {
-            
-            await sendInvite({ teamId, email: data.email }).unwrap();
-            toast.success('Invite Sent successfully!', { id: loadingToast })
-            reset();      
-        } catch (error) {
-            console.error(error);
-            const msg = error.data?.message || "Failed to send invite"
-            toast.error(msg, { id: loadingToast })
-        }
-    };
+    try {
+
+      await sendInvite({ teamId, name: data.name, email: data.email }).unwrap();
+      toast.success('Invite Sent successfully!', { id: loadingToast })
+      reset();
+    } catch (error) {
+      console.error(error);
+      const msg = error.data?.message || "Failed to send invite"
+      toast.error(msg, { id: loadingToast })
+    }
+  };
 
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
       className="w-125 bg-white rounded-xl p-6 flex flex-col gap-5 shadow-lg"
     >
-      
+
       <div>
         <p className="text-xl font-semibold">
           Team <span className="text-[#044FD2]">Details</span>
@@ -42,16 +43,27 @@ function AddMemberModal({teamId}) {
         </p>
       </div>
 
-      
       <div className="flex flex-col gap-1">
+        <label className="text-sm font-medium ml-2">Member Name</label>
         <input
-                    type="email"
-                    {...register("email", { 
-                        required: "Email is required",})}
-                    placeholder="Enter Member"
-                    className="h-12 rounded-full bg-[#F4F8FC] border border-[#D7D7D7] px-4
+          type="text"
+          {...register("name", { required: "Name is required" })}
+          placeholder="John Doe"
+          className="h-12 rounded-full bg-[#F4F8FC] border border-[#D7D7D7] px-4 focus:outline-none focus:ring-2 focus:ring-blue-300"
+        />
+        {errors.name && <span className="text-xs text-red-500 ml-2">{errors.name.message}</span>}
+      </div>
+      <div className="flex flex-col gap-1">
+        <label className="text-sm font-medium ml-2">Member Email</label>
+        <input
+          type="email"
+          {...register("email", {
+            required: "Email is required",
+          })}
+          placeholder="Enter Email"
+          className="h-12 rounded-full bg-[#F4F8FC] border border-[#D7D7D7] px-4
                     focus:outline-none focus:ring-2 focus:ring-blue-300"
-                />
+        />
         {errors.email && (
           <span className="text-xs text-red-500">
             {errors.email.message}
@@ -60,7 +72,7 @@ function AddMemberModal({teamId}) {
       </div>
 
 
-     
+
       <button
         type="submit"
         disabled={isLoading}

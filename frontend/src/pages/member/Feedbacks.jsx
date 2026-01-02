@@ -3,7 +3,7 @@ import StatsCard from '../../components/ui/StatsCard'
 import { useEffect, useState } from 'react'
 import { Column } from '../../features/kanban/Column'
 import { DndContext} from '@dnd-kit/core';
-import { useGetAssignedFeedbacksQuery, useGetIssuesQuery, useUpdateIssueStatusMutation } from "../../features/feedbacks/issuesApiSlice";
+import { useGetAssignedFeedbacksQuery, useUpdateFeedbacksStatusMutation } from "../../features/feedbacks/FeedbacksApiSlice";
 import { LoadingIndicator } from "../../components/ui/loading-indicator";
 
 
@@ -13,43 +13,12 @@ const COLUMNS = [
   { id: 'done', title: 'Done' },
 ];
 
-
-// const INITIAL_TASKS = [
-//   {
-//     id: '1',
-//     title: 'Research Project',
-//     description: 'Gather requirements and create initial documentation',
-//     status: 'TODO',
-//   },
-//   {
-//     id: '2',
-//     title: 'Design System',
-//     description: 'Create component library and design tokens',
-//     status: 'TODO',
-//   },
-//   {
-//     id: '3',
-//     title: 'API Integration',
-//     description: 'Implement REST API endpoints',
-//     status: 'IN_PROGRESS',
-//   },
-//   {
-//     id: '4',
-//     title: 'Testing',
-//     description: 'Write unit tests for core functionality',
-//     status: 'DONE',
-//   },
-// ];
-
-
-
-
 export const Feedbacks = () =>{
 
   
 
      const { data: feedbacks, isLoading } = useGetAssignedFeedbacksQuery()
-     const [updateStatus] = useUpdateIssueStatusMutation()
+     const [updateStatus] = useUpdateFeedbacksStatusMutation()
      const [tasks, setTasks] = useState([]);
 
      useEffect(() => {

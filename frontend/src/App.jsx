@@ -5,7 +5,6 @@ import Login from './pages/auth/Login'
 import Register from './pages/auth/Register'
 import Home from './pages/Home'
 import { Routes, Route , useLocation, Navigate } from "react-router-dom";
-import DashboardLayout from './components/layout/DashboardLayout'
 import ManagerDashboard from './pages/manager/ManagerDashboard'
 import MemberDashboard from './pages/member/MemberDashboard'
 import RequireAuth from './features/auth/RequireAuth'
@@ -25,7 +24,9 @@ function App() {
   location.pathname.startsWith("/manager") ||
   location.pathname.startsWith("/member") ||
   location.pathname.startsWith("/client")||
-  location.pathname.startsWith("/submit-feedback")
+  location.pathname.startsWith("/submit-feedback")||
+  location.pathname.startsWith("/login")||
+  location.pathname.startsWith("/register")
 
 
   

@@ -47,10 +47,10 @@ export const teamApi = apiSlice.injectEndpoints({
 
 
     sendInvite: builder.mutation({
-      query: ({ teamId, email }) => ({
+      query: ({ teamId, name, email }) => ({
         url: `/teams/${teamId}/invite`,
         method: 'POST',
-        body: { email },
+        body: { name, email },
         
       }),
       

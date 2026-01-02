@@ -4,6 +4,7 @@ import { useForm } from "react-hook-form"
 import { useSignupMutation } from "../../features/auth/authApiSlice"
 import { useDispatch } from "react-redux"
 import { setCredentials } from "../../features/auth/authSlice"
+import GoogleLogin from "../../features/auth/GoogleLogin"
 function Register() {
 
 
@@ -29,6 +30,7 @@ function Register() {
         const result = await signup(data).unwrap()
         console.log("Signup Result:", result);
         dispatch(setCredentials(result))
+        dispatch(apiSlice.util.resetApiState())
         console.log("Attempting to navigate...");
         navigate('/manager/dashboard')
             
@@ -102,6 +104,7 @@ function Register() {
 
                 <div className='flex flex-col justify-center items-center space-y-3.5'>
                     <button disabled={isLoading} type='submit' className='disabled:bg-gray-300 w-full h-12 bg-[#0059F3] rounded-4xl flex justify-center items-center text-white cursor-pointer'>Sign Up</button>
+                    <GoogleLogin/>
                     <p>Aleardy  Have an account ? <Link to="/login"><span className=' text-[#044FD2]'>Sign In</span></Link> </p>
                 </div>
                 

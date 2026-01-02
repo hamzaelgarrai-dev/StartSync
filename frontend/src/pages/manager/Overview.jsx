@@ -1,18 +1,18 @@
 import React from 'react'
 import { ListChecks, CircleCheck, Clock, ChartLine } from "lucide-react"
 import StatsCard from '../../components/ui/StatsCard'
-import { useGetIssuesQuery, useGetStatsQuery } from '../../features/feedbacks/issuesApiSlice'
+import { useGetFeedbacksQuery, useGetFeedbacksStatsQuery} from '../../features/feedbacks/FeedbacksApiSlice'
 import { LoadingIndicator } from '../../components/ui/loading-indicator'
 
 export const Overview = () => {
 
 
-    const { data : issues, issuesLoading } = useGetIssuesQuery();
+    const { data : issues, issuesLoading } = useGetFeedbacksQuery();
 
 
    
 
-    const { data: stats = {}, isLoading: statsLoading } = useGetStatsQuery()
+    const { data: stats = {}, isLoading: statsLoading } = useGetFeedbacksStatsQuery()
 
 
     console.log('issues', issues)

@@ -16,7 +16,7 @@ function CreateProjectModal({ onClose }) {
 
   const onSubmit = async (data) => {
 
-    const loadingToast = toast.loading('Creating project...');
+    const loadingToast = toast.loading('Creating project...')
     try {
       
       await createProject(data).unwrap()

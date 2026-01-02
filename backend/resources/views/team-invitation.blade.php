@@ -2,14 +2,16 @@
 # Hello!
 
 You have been invited to join the team **{{ $teamName }}**. 
-Click the button below to accept the invitation and start collaborating.
+Your account has been created successfully. You can now log in using the credentials below:
 
-@component('mail::button', ['url' => $url])
-Join Team
+**Email:** {{ $email }}  
+**Temporary Password:** `{{ $password }}`
+
+@component('mail::button', ['url' => 'http://localhost:5173/login'])
+Login to Your Dashboard
 @endcomponent
 
-This invitation link will expire in 7 days.
+
 
 Thanks,<br>
-{{ config('app.name') }}
 @endcomponent
