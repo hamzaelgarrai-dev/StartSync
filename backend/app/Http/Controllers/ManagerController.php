@@ -25,8 +25,7 @@ class ManagerController extends Controller
     public function feedbacks(Request $request)
     {
         $feedback = $request->user()->managedFeedbacks()
-        ->with(['assignedUser', 'assignedTeam'])
-        ->paginate(10);
+        ->with(['assignedUser', 'assignedTeam'])->latest()->paginate(10);
         return response()->json([
         'success' => true,
         'message' => 'feedbacks list',
@@ -71,23 +70,48 @@ class ManagerController extends Controller
     ]);
     }
 
-    public function assignFeedback(Request $request, Feedback $feedback)
-{
+//     public function assignFeedback(Request $request, Feedback $feedback)
+// {
     
-    $this->authorize('assign', $feedback);
+//     $this->authorize('assign', $feedback);
 
-    $request->validate([
+//     $request->validate([
+//         'assigned_to_user_id' => 'nullable|exists:users,id',
+//         'assigned_to_team_id' => 'nullable|exists:teams,id',
+//     ]);
+
+//     $feedback->update([
+//         'assigned_to_user_id' => $request->assigned_to_user_id,
+//         'assigned_to_team_id' => $request->assigned_to_team_id,
+//         'status' => 'open' // Automatically move to in_progress when assigned
+//     ]);
+
+//     return response()->json(['success' => true, 'message' => 'Feedback assigned successfully']);
+//     }
+
+
+
+
+    public function getMembers(Project $project)
+    {
+    $members = User::where('team_id', $project->team->id)
+                   ->select('id', 'name')
+                   ->get();
+
+    return response()->json($members);
+    } 
+
+    public function assign(Request $request, Feedback $feedback)
+    {
+      $validated = $request->validate([
         'assigned_to_user_id' => 'nullable|exists:users,id',
-        'assigned_to_team_id' => 'nullable|exists:teams,id',
-    ]);
+       ]);
 
-    $feedback->update([
+      $feedback->update([
         'assigned_to_user_id' => $request->assigned_to_user_id,
-        'assigned_to_team_id' => $request->assigned_to_team_id,
-        'status' => 'open' // Automatically move to in_progress when assigned
-    ]);
-
-    return response()->json(['success' => true, 'message' => 'Feedback assigned successfully']);
+      ]);
+      
+       return $feedback->load(['assignedUser']);
     }
 
 

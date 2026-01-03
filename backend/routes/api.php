@@ -42,22 +42,27 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/me', [AuthController::class, 'me']);
     Route::post('/logout', [AuthController::class, 'logout']);
 
+
     Route::get('/feedbacks' , [ManagerController::class , 'feedbacks']);
     Route::get('/feedbacks/stats' , [ManagerController::class , 'stats']);
     Route::post('/feedback', [ClientController::class, 'createFeedback']);
-    
+    Route::post('/feedback/{feedback}/assign', [ManagerController::class, 'assign']);
+    Route::get('/projects/{project}/members', [ManagerController::class, 'getMembers']);
+    Route::get('/assigned-feedbacks', [MemberController::class, 'loadAssignedFeedback']);
+    Route::patch('/feedbacks/{feedback}/status', [MemberController::class, 'updateStatus']);
+
 
     Route::get('/projects', [ManagerController::class, 'projects']);
     Route::post('/projects', [ManagerController::class, 'storeProject']);
 
+    
     Route::get("/teams" , [ManagerController::class , 'teams']);
     Route::post('/teams', [ManagerController::class, 'storeTeam']);
     Route::delete('/teams/{teamId}', [ManagerController::class, 'deleteTeam']);
     Route::post('/teams/{team}/invite', [ManagerController::class, 'invite']);
 
 
-    Route::get('/assigned-feedbacks', [MemberController::class, 'loadAssignedFeedback']);
-    Route::patch('/feedbacks/{feedback}/status', [MemberController::class, 'updateStatus']);
+   
 });
 
 

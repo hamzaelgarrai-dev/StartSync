@@ -62,7 +62,6 @@ function CreateProjectModal({ onClose }) {
         )}
       </div>
 
-      
       <div className="flex flex-col gap-1">
         <textarea
           {...register("description", { required: "Description is required" })}

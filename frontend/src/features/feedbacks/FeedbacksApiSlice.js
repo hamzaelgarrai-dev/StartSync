@@ -39,16 +39,20 @@ export const feedbacksApi = apiSlice.injectEndpoints({
       invalidatesTags: ['Feedback']
     }),
 
+    getProjectMembers: builder.query({
+      query: (projectId) => `/projects/${projectId}/members`,
+      providesTags: ['ProjectMembers'],
+    }),
     
-    // assignIssue: builder.mutation({
-    //   query: ({ issueId, ...payload }) => ({
-    //     url: `/issues/${issueId}/assign`,
-    //     method: 'POST',
-    //     body: payload,
-    //   }),
-      
-    //   invalidatesTags: ['Feedback', 'FeedbackStats'],
-    // }),
+    assignFeedback: builder.mutation({
+      query: ({ feedbackId, userId }) => ({
+      url: `/feedback/${feedbackId}/assign`, 
+      method: 'POST',
+      body: { assigned_to_user_id: userId }, 
+     }),
+      invalidatesTags: ['Feedback'],
+  }),
+
 
     updateFeedbacksStatus: builder.mutation({
       query: ({ id, status }) => ({
@@ -72,4 +76,4 @@ export const feedbacksApi = apiSlice.injectEndpoints({
   }),
 })
 
-export const { useGetFeedbacksQuery, useGetFeedbacksStatsQuery , useCreateFeedbackMutation, useGetAssignedFeedbacksQuery, useUpdateFeedbacksStatusMutation} = feedbacksApi
+export const { useGetFeedbacksQuery, useGetFeedbacksStatsQuery , useCreateFeedbackMutation, useGetAssignedFeedbacksQuery, useUpdateFeedbacksStatusMutation, useAssignFeedbackMutation, useGetProjectMembersQuery} = feedbacksApi
